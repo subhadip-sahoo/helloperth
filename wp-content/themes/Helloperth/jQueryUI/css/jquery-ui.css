@@ -780,7 +780,7 @@ button.ui-button::-moz-focus-inner {
 }
 .ui-tabs .ui-tabs-nav {
 	margin: 0;
-	padding: .2em .2em 0;
+	padding:0;
 }
 .ui-tabs .ui-tabs-nav li {
 	list-style: none;
@@ -812,7 +812,7 @@ button.ui-button::-moz-focus-inner {
 .ui-tabs .ui-tabs-panel {
 	display: block;
 	border-width: 0;
-	padding: 1em 1.4em;
+	padding:0;
 	background: none;
 }
 .ui-tooltip {
@@ -844,7 +844,7 @@ body .ui-tooltip {
 	font-size: 1em;
 }
 .ui-widget-content {
-	border: 1px solid #aaaaaa;
+	/*border: 1px solid #aaaaaa;*/
 	background: #ffffff url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
 	color: #222222;
 }
@@ -852,8 +852,8 @@ body .ui-tooltip {
 	color: #222222;
 }
 .ui-widget-header {
-	border: 1px solid #aaaaaa;
-	background: #cccccc url("images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;
+	/*border: 1px solid #aaaaaa;
+	background: #cccccc url("images/ui-bg_highlight-soft_75_cccccc_1x100.png") 50% 50% repeat-x;*/
 	color: #222222;
 	font-weight: bold;
 }
@@ -863,18 +863,21 @@ body .ui-tooltip {
 
 /* Interaction states
 ----------------------------------*/
+#tabs{
+	margin:35px 0 0 0;
+	}
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 1px solid #d3d3d3;
-	background: #e6e6e6 url("images/ui-bg_glass_75_e6e6e6_1x400.png") 50% 50% repeat-x;
+	background: #EA7621;
 	font-weight: normal;
 	color: #555555;
 }
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {
-	color: #555555;
+	color: #fff;
 	text-decoration: none;
 }
 .ui-state-hover,

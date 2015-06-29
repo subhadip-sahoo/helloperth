@@ -60,6 +60,7 @@ textarea {
    ========================================================================== */
 body {
     font: 16px/26px Helvetica, Helvetica Neue, Arial;
+	color:#333;
 }
 .ie7 .title {
     padding-top: 20px;
@@ -699,7 +700,7 @@ body {
   font-size: 14px;
   line-height: 1.45;
   font-weight: 400;
-  color: #000;
+  color: #333;
   font-family: 'Roboto', sans-serif;
 }
 .icon {
@@ -1501,6 +1502,12 @@ BEST PERTH STYLES
   max-width: 74px;
   margin: 0 auto;
 }
+.inner-banner-container .owl-carousel .owl-controls .owl-nav .owl-next{
+	background-color:none !important;
+	}
+.owl-controls .owl-nav .owl-next{
+	background-color:none !important;
+	}
 .best-perth-section .owl-dots .owl-dot {
   width: 9px;
   height: 9px;
@@ -1765,6 +1772,7 @@ INNER PAGE STYLES
 }
 .main {
   padding-top: 30px;
+  min-height:900px;
 }
 .inner-explore-search-area {
   background-image: url(../images/event-texture.jpg);
@@ -1797,6 +1805,7 @@ INNER PAGE STYLES
 .inner-right-container {
   float: right;
   width: 26.5%;
+  margin:50px 0 0 0;
 }
 .site-heading {
   margin-bottom: 12px;
@@ -1842,8 +1851,8 @@ INNER PAGE STYLES
   margin-bottom: 10px;
 }
 .click-large-view-map {
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 300;
   color: #000;
 }
 .click-large-view-map:hover {
@@ -1948,7 +1957,7 @@ INNER PAGE STYLES
   margin-left: auto;
 }
 .inner-banner-container .owl-carousel .owl-controls .owl-nav .owl-prev {
-  background-color: #040611;
+  /*background-color: #040611;*/
   width: 48px;
   height: 48px;
   line-height: 48px;
@@ -1969,7 +1978,7 @@ INNER PAGE STYLES
   transition: all .3s ease;
 }
 .inner-banner-container .owl-carousel .owl-controls .owl-nav .owl-next {
-  background-color: #040611;
+  /*background-color: #040611;*/
   width: 48px;
   height: 48px;
   line-height: 48px;
@@ -2677,9 +2686,11 @@ REGISTRATION STYLES
 	line-height: 25px;
 }
 .registration-block {
-	width: 50%;
+	width: 47%;
 	padding: 0 18px;
 	float: left;
+	margin:0 15px 0 0;
+	background:#f8f8f8;
 }
 .registration-devider {
 	margin-left: -18px;
@@ -2700,6 +2711,7 @@ REGISTRATION STYLES
 }
 .registration-btn-group {
 	text-align: right;
+	margin:25px 33px 0 0
 }
 /*======================================
 PAYMENT STYLES
@@ -3966,3 +3978,36 @@ a.bg-danger:focus {
 
 
 }
+
+
+#before-pop h3{
+	text-align:center;
+	}
+#before-pop img{
+	text-align:center !important;
+	margin:0 auto !important;
+	display:block;
+	}
+.mfp-content table tbody tr td h2{
+	text-align:left;
+	}
+.mfp-content table tbody tr td {
+	text-align:left;
+	padding:5px;
+	border:1px solid #ccc;
+	}
+.mfp-content table {
+	width:100%;
+	}
+.payment-table-lists-description-area ul li{
+	list-style: none !important;
+	}
+.registration-block dl dd{
+	line-height:45px;
+	}
+.registration-block p{
+	float:left;
+	}
+.asterik-toggle{
+	margin:0 0 0 15px;
+	}
