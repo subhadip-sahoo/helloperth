@@ -2161,11 +2161,15 @@ SINGLE STYLES
   line-height: 26px;
 }
 .location-title-icon {
+  
+}
+.map_box{
   padding-left: 33px;
   background-image: url(../images/sprite.png);
   background-repeat: no-repeat;
   background-position: -429px -38px;
-}
+  height:30px;
+	}
 .single-loaction {
   font-size: 14px;
   font-weight: 300;
@@ -2199,14 +2203,16 @@ SINGLE STYLES
   margin-bottom: 47px;
 }
 .single-quick-con-area {
-  background-color: #bdbdbd;
+  background-color: #f8f8f8;
   padding: 26px 28px;
   color: #fff;
+  border:1px solid #b9b9b9;
+  border-radius:5px;
 }
 .single-quick-con-area h4 {
   font-size: 20px;
   line-height: 1.2;
-  color: #fff;
+  color: #666;
   font-family: 'Roboto', sans-serif;
   margin-bottom: 10px;
   font-weight: 300;
@@ -4010,4 +4016,11 @@ a.bg-danger:focus {
 	}
 .asterik-toggle{
 	margin:0 0 0 15px;
+	}
+.garry_left{
+	width:71% !important;
+	margin:0 3% 0 0;
+	}
+.garry_right{
+	width:25% !important;
 	}

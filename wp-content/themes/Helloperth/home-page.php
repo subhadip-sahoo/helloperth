@@ -142,7 +142,7 @@
                             <div id="map-home" style="width: 890px; height: 224px;"></div>
                         </div>
                         <a href="" class="btn btn-view-download hide-desktop">View Download PDF maps <i class="fa fa-arrow-circle-o-right"></i></a>
-                        <?php $static_page_ids = array(EXCLUSIVE_DISCOUNT_PAGE, EVENTS_IN_PERTH_PAGE, TOURIST_INFO_PAGE); ?>
+                        <?php $static_page_ids = array(EXCLUSIVE_DISCOUNT_PAGE, NEWS_N_EVENTS_PAGE, TOURIST_INFO_PAGE); ?>
                         <?php $button_names = array('Discounts', 'Events', 'Tourist Info'); ?>
                         <div class="perth-tourist-map-lists clearfix">
                             <ul class="grid-row">
@@ -163,7 +163,7 @@
                                             </figure>
                                             <?php endif; ?>
                                             <h3 class="parth-slider-title">
-                                                <a href="<?php echo href($id); ?>"><?php echo $page->post_title; ?> <i class="icon icon-arrow"></i></a>
+                                                <a href="<?php echo href($id); ?>"><?php echo ($id == NEWS_N_EVENTS_PAGE) ? 'Events in Perth' : $page->post_title; ?> <i class="icon icon-arrow"></i></a>
                                             </h3>
                                         </div>
                                         <div class="perth-tourist-lists-con">

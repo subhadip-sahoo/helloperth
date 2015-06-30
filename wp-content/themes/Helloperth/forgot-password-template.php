@@ -7,7 +7,7 @@ $suc_msg = '';
 $info_msg = '';
 global $wpdb ,$user_ID;
 if($user_ID){
-    wp_safe_redirect(site_url('profile'));
+    wp_safe_redirect(href(LOGIN_PAGE));
     exit();
 }
 

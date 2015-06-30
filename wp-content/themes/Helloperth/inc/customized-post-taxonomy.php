@@ -114,6 +114,23 @@ function helloperth_post_types() {
     );
     flush_rewrite_rules();
     
+    register_post_type('maps',
+            array(
+                'public' => true,
+                'label' => 'Maps',
+                'labels'  => array(
+                    'name' => __('Maps'),
+                    'add_new'  => __('Add New Map'),
+                    'all_items'  => __('All Maps'),
+                    'add_new_item'  => __('Add New Map'),
+                ),
+                'rewrite' => array("slug" => "map"),
+                'supports' => array( 'title'),
+                'menu_position' => 84,
+                'menu_icon' => get_template_directory_uri().'/images/maps.png'
+            )
+    );
+    flush_rewrite_rules();
 }
 
 foreach( array( 'directories' ) as $hook )

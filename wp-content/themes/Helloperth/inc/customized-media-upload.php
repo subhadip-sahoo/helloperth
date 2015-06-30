@@ -44,12 +44,18 @@ function media_upload_prefilter($file){
 add_filter('upload_mimes', 'restrict_mime');
 
 function restrict_mime($mimes) {
-    if(!current_user_can('administrator')){
-        $mimes = array(
-            'jpg|jpeg|jpe' => 'image/jpeg',
-            'gif' => 'image/gif',
-            'png' => 'image/png',
-        );
+    global $user_ID;
+    if($user_ID){
+        $userdata = get_userdata($user_ID);
+        if(in_array('administrator', $userdata->roles) == FALSE){
+            $mimes = array(
+                'jpg|jpeg|jpe' => 'image/jpeg',
+                'gif' => 'image/gif',
+                'png' => 'image/png',
+            );
+            return $mimes;
+            exit();
+        }
         return $mimes;
         exit();
     }

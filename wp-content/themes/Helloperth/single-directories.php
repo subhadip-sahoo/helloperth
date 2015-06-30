@@ -64,7 +64,7 @@
             <div class="single-content clearfix">
                 <div class="single-content-area clearfix">
                     <div class="grid-row">
-                        <div class="grid-row-2">
+                        <div class="grid-row-2 garry_left">
                             <div class="single-grid-block">
                                 <header class="site-heading">
                                     <h2><?php the_title(); ?></h2>
@@ -73,7 +73,7 @@
                                     <div class="grid-row">
                                         <div class="grid-row-2">
                                             <h4 class="location-title-icon">Location</h4>
-                                            <p><a target="_blank" href="https://www.google.com/maps/place/<?php echo urlencode(get_post_meta($post->ID, 'geo_location', TRUE)); ?>"><?php echo get_post_meta($post->ID, 'geo_location', TRUE); ?></a></p>
+                                            <p class="map_box"><a target="_blank" href="https://www.google.com/maps/place/<?php echo urlencode(get_post_meta($post->ID, 'geo_location', TRUE)); ?>"><?php echo get_post_meta($post->ID, 'geo_location', TRUE); ?></a></p>
                                         </div>
                                         <div class="grid-row-2">
                                             <h4>Contact Info</h4>
@@ -89,7 +89,7 @@
                         </div>
                         <?php $get_all_images = get_post_meta($post->ID, '_easy_image_gallery', TRUE); ?>
                         <?php if(!empty($get_all_images)): ?>
-                        <div class="grid-row-2">
+                        <div class="grid-row-2 garry_right">
                             <div class="single-grid-block">
                                 <div class="single-slider-area">
                                     <div id="single-slider" class="single-slider-flex flexslider">

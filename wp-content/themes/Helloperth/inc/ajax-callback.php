@@ -16,7 +16,7 @@ function directories(){
     global $wp_query, $authordata;
     $directories = '';
     if(isset($_POST) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
-        $item_per_page = 1;
+        $item_per_page = 20;
 	if(isset($_POST['page'])){
             $page_number = filter_var($_POST['page'], FILTER_SANITIZE_NUMBER_INT, FILTER_FLAG_STRIP_HIGH);
             if(!is_numeric($page_number)){die('Invalid page number!');}

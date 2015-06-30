@@ -33,7 +33,7 @@ if(isset($_POST['reset_password'])){
             $update = wp_update_user( array ( 'ID' => $us_id, 'user_pass' =>$new_pass) ) ;
             if($update){
                 $_SESSION['session_msg'] = 'Your Password has been reset successfully. Please login.';
-                wp_safe_redirect(site_url('login'));
+                wp_safe_redirect(href(LOGIN_PAGE));
                 exit();
             }
         }
