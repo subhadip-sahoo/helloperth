@@ -66,11 +66,14 @@
 
                             ?>
                                 <li>
-                                    <?php if(!empty($event_image[0])) : ?>
                                     <figure class="news-event-image">
+                                        <?php if(!empty($event_image[0])) : ?>
                                         <img src="<?php echo $event_image[0]; ?>" alt="Image" width="177" height="137">
+                                        <?php else: ?>
+                                        <img src="<?php echo get_template_directory_uri(); ?>/images/no-image-events.png" alt="Image" width="177" height="137">
+                                        <?php endif; ?>
                                     </figure>
-                                    <?php endif; ?>
+                                   
                                     <div class="news-events-content">
                                         <h2><?php echo date('d/m/Y', strtotime($evt['start_date'])); ?>  -  <?php echo date('d/m/Y', strtotime($evt['end_date'])); ?>&nbsp;<?php echo $event->post_title; ?></h2>
                                         <p><?php echo mb_strimwidth($event->post_content, 0, 200, '...'); ?></p>
@@ -231,7 +234,13 @@
     <div class="wrapper">
         <div class="inner-main-base-container">
             <div class="guides-available-image-area hide-tablet">
-                <figure class="guides-available-image"><img src="<?php echo get_template_directory_uri();?>/images/guides-image.png" alt="Image" width="270" height="381"></figure>
+                <?php $home_guide_image = get_field('home_guide_image', 'option'); ?>
+                <?php if(is_numeric($home_guide_image)) : ?>
+                <?php $home_guide_image_src = wp_get_attachment_image_src($home_guide_image, 'home_guide_image'); ?>
+                <figure class="guides-available-image">
+                    <img src="<?php echo $home_guide_image_src[0]; ?>" alt="Image" width="270" height="381">
+                </figure>
+                <?php endif; ?>
             </div>
             <article class="guides-available-content">
                 <h4 class="guides-available-title hide-tablet">Guides Available:</h4>
@@ -239,9 +248,9 @@
                     <p>Hello Perth is the premier free visitor guide to our beautiful capital city, Perth. Let us guide you to discover and enjoy the very best Western Australia has to offer with the latest information, maps and exclusive offers at your fingertips, in print and online. Be fully informed with our free printed guide (available at over 250 locations throughout Perth), browse this website, or download our App or PDF guide.</p>
                 </div>
                 <div class="grid-row">
-                    <div class="grid-row-3"><a href="" class="btn btn-guides-available"><i class="icon icon-download"></i><span>App Store Download for iOS</span></a></div>
-                    <div class="grid-row-3"><a href="" class="btn btn-guides-available"><i class="icon icon-download1"></i><span>PDF Guide download (13mb)</span></a></div>
-                    <div class="grid-row-3"><a href="" class="btn btn-guides-available"><i class="icon icon-download2"></i><span>Printed guide pickup location map</span></a></div>
+                    <div class="grid-row-3"><a href="<?php echo (get_field('app_store_link', 'option') <> '') ? get_field('app_store_link', 'option') : '#'; ?>" class="btn btn-guides-available" target="_blank"><i class="icon icon-download"></i><span>App Store Download for iOS</span></a></div>
+                    <div class="grid-row-3"><a href="<?php echo get_field('pdf_guide_download', 'option'); ?>" class="btn btn-guides-available" target="_blank"><i class="icon icon-download1"></i><span>PDF Guide download (13mb)</span></a></div>
+                    <div class="grid-row-3"><a href="<?php echo href(GUIDE_PICKUP_LOCATIONS_PAGE); ?>" class="btn btn-guides-available"><i class="icon icon-download2"></i><span>Printed guide pickup location map</span></a></div>
                 </div>
             </article>
         </div>

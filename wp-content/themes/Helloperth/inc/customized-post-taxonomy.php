@@ -55,7 +55,7 @@ function helloperth_post_types() {
                 'rewrite' => array("slug" => "packages"),
                 'supports' => array( 'title', 'editor'),
                 'menu_position' => 8,
-                'menu_icon' => get_template_directory_uri().'/images/cost.png'
+                'menu_icon' => get_template_directory_uri().'/images/cost.gif'
             )
     );
     flush_rewrite_rules();

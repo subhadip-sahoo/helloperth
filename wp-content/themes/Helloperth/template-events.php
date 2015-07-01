@@ -15,11 +15,14 @@
             $event_image = wp_get_attachment_image_src(get_post_thumbnail_id($evt['post_id']), 'list-events');
 ?>
             <article id="post-<?php echo $evt['post_id']; ?>" <?php post_class(); ?>>
-                <?php if(!empty($event_image[0])) : ?>
                 <figure class="news-event-figure">
+                    <?php if(!empty($event_image[0])) : ?>
                     <a href="javascript:void(0);"><img src="<?php echo $event_image[0]; ?>" alt="" width="227" height="154"></a>
+                    <?php else: ?>
+                    <a href="javascript:void(0);"><img src="<?php echo get_template_directory_uri(); ?>/images/no-image-events-listing.png" alt="" width="227" height="154"></a>
+                    <?php endif; ?>
                 </figure>
-                <?php endif; ?>
+               
                 <div class="news-event-content">
                     <h4 class="news-event-title"><a href="javascript:void(0);"><span class="news-event-date"><?php echo date('d/m/Y', strtotime($evt['start_date'])); ?>  -  <?php echo date('d/m/Y', strtotime($evt['end_date'])); ?></span> <span class="news-event-title-t"><?php echo $event->post_title; ?></span></a></h4>
                     <div class="news-event-text">

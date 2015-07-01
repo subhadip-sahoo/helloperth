@@ -18,7 +18,7 @@ if (!class_exists('WP_List_Table')) {
 require_once dirname(__FILE__).'/class/user_payment_details_list_table.class.php';
 
 function user_payment_details_admin_menu(){
-    $hook = add_menu_page(__('Payment Details', 'user_payment_details'), __('Payments', 'user_payment_details'), 'activate_plugins', 'user-details', 'user_payment_details_main', plugins_url().'/user-payment-details/images/addEdit.png', 7);
+    $hook = add_menu_page(__('Payment Details', 'user_payment_details'), __('Payments', 'user_payment_details'), 'activate_plugins', 'user-details', 'user_payment_details_main', plugins_url().'/user-payment-details/images/payments.jpg', 7);
     add_action('load-'.$hook, 'cct_add_option');
 }
 

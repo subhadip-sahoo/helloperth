@@ -139,6 +139,8 @@ function twentyfifteen_setup() {
         add_image_size('home_block_image_tablet', 1024, 289);
         add_image_size('home_block_image_mobile', 767, 336);
         
+        add_image_size('home_guide_image', 270, 381);
+        
         /* Set default local timezone */
         
         date_default_timezone_set(get_field('default_timezone', 'option'));
