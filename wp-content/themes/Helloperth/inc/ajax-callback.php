@@ -51,6 +51,9 @@ function directories(){
                 
                 $location = get_post_meta(get_the_ID(), 'geo_location', true);
                 $website = get_post_meta(get_the_ID(), 'website', true);
+                $website_title_dir = (get_post_meta(get_the_ID(), 'website_title_dir', true) <> '') ? get_post_meta(get_the_ID(), 'website_title_dir', true): get_post_meta(get_the_ID(), 'website', true);
+                $phone = get_post_meta(get_the_ID(), 'phone', true);
+                $email_address = get_post_meta(get_the_ID(), 'email_address', true);
                 
                 $author_contact = get_user_meta($authordata->ID, 'contact_number', true );
                 
@@ -81,9 +84,11 @@ function directories(){
                 $directories .= '<ul class="perth-popup-list-address">';
                 $directories .= '<li class="perth-popup-list"><i class="icon perth-popup-list-icon"></i> '.implode(', ', $terms).'</li>';
                 $directories .= '<li class="perth-popup-list"><i class="icon perth-popup-list-icon1"></i> '.$location.'</li>';
-                $directories .= '<li class="perth-popup-list"><i class="icon perth-popup-list-icon2"></i> '.$author_contact.'</li>';
+                if(!empty($phone) || $phone):
+                $directories .= '<li class="perth-popup-list"><i class="icon perth-popup-list-icon2"></i> '.$phone.'</li>';
+                endif;
                 $directories .= '<li class="perth-popup-list"><i class="icon perth-popup-list-icon3"></i>';
-                $directories .= '<a href="'.$website.'" target="_blank">'.$website.'</a>';
+                $directories .= '<a href="'.$website.'" target="_blank">'.$website_title_dir.'</a>';
                 $directories .= '</li>';
                 $directories .= '</ul>';
                 $directories .= '<p>'.  get_the_excerpt(get_the_ID()) .'</p>';

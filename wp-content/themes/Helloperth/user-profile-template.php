@@ -130,14 +130,6 @@ get_header();
                                 </div>
                             </div>
                         </div>
-<!--                        <nav class="usre-profile-menu">
-                            <ul>
-                                <li><a href="<?php echo href(ADD_DIRECTORY_PAGE); ?>" class="button btn">Add directory</a></li>
-                                <li><a href="<?php echo href(ADVANCED_SEARCH_PAGE); ?>" class="button btn">Search directory</a></li>
-                                <li><a href="<?php echo href(MAKE_PAYMENT_PAGE).'/'.$userdata->user_activation_key.'/'.$user_ID; ?>" class="button btn">Plans</a></li>
-                                <li><a href="<?php echo href(NEWS_N_EVENTS_PAGE); ?>" class="button btn">Events</a></li>
-                            </ul>
-                        </nav>-->
                         <div class="txn-log-container">
                             <div class="txn-log">
                                 <h2>Last 10 transactions</h2>

@@ -24,9 +24,12 @@
             unit: 'c',
             success: function(weather) {
                 html = '<div class="weataher-current">';
-                var status = weather.currently;
-                status = status.toLowerCase();
-                status = status.replace(' ', '-');
+                var title = weather.currently;
+                title = title.replace(/[&\/\\#,+()@_$~%.'":*?<>{}]/g, '');
+                title = title.replace(/[, ]+/g, ' ').trim();
+                var words = title.split(' ');
+                var str = words.join('-');
+                var status = str.toLowerCase();
                 if(status != 'unknown'){
                     html += '<img src="'+template.uri+'/images/weather-icons/'+status+'.png" width="" height="">';
                 }

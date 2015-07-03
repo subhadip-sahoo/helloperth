@@ -77,8 +77,12 @@
                                         </div>
                                         <div class="grid-row-2">
                                             <h4>Contact Info</h4>
-                                            <p class="tel-number-icon"><?php echo get_user_meta($post->post_author, 'contact_number', TRUE); ?></p>
-                                            <p class="website-icon"><a href="mailto:<?php echo get_the_author_meta('user_email', $post->post_author); ?>"><?php echo get_the_author_meta('user_email', $post->post_author); ?></a></p>
+                                            <p class="tel-number-icon"><?php echo get_post_meta($post->ID, 'phone', TRUE); ?></p>
+                                            <p class="website-icon">
+                                                <a href="mailto:<?php echo get_post_meta($post->ID, 'email_address', TRUE); ?>">
+                                                    <?php echo get_post_meta($post->ID, 'email_address', TRUE); ?>
+                                                </a>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

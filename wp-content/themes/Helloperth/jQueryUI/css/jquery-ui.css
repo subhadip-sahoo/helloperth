@@ -117,6 +117,9 @@
 	top: 0;
 	left: 0;
 	cursor: default;
+        background: #fff;
+        border:1px solid #ccc;
+        box-shadow: 1px 0 3px #ccc;
 }
 .ui-button {
 	display: inline-block;

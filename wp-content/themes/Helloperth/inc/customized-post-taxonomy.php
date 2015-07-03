@@ -195,6 +195,26 @@ function street_section() {
 ?>
     <input type="hidden" name="eventmeta_noncename" id="eventmeta_noncename" value="<?php echo  wp_create_nonce( plugin_basename(__FILE__) );?>" />
     <p>
+        <label>Company Name: </label>
+        <input type="text" name="company_name" id="company_name" value="<?php echo get_post_meta($post->ID, 'company_name', true) ?>" style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0"/>
+    </p>
+    <p>
+        <label>Contact Person: </label>
+        <input type="text" name="contact_person" id="contact_person" value="<?php echo get_post_meta($post->ID, 'contact_person', true) ?>" style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0"/>
+    </p>
+    <p>
+        <label>Email Address: </label>
+        <input type="email" name="email_address" id="email_address" value="<?php echo get_post_meta($post->ID, 'email_address', true) ?>" required style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0">
+    </p>
+    <p>
+        <label>Phone: </label>
+        <input type="text" name="phone" id="phone" value="<?php echo get_post_meta($post->ID, 'phone', true) ?>" required style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0"/>
+    </p>
+    <p>
+        <label>Website Title: </label>
+        <input type="text" name="website_title_dir" id="website_title_dir" value="<?php echo get_post_meta($post->ID, 'website_title_dir', true) ?>" required style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0">
+    </p>
+    <p>
         <label>Website: </label>
         <input type="url" name="website" id="website" value="<?php echo get_post_meta($post->ID, 'website', true) ?>" required style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0">
     </p>
@@ -250,6 +270,11 @@ function save_directories_meta($post_id, $post) {
     if ( !current_user_can( 'edit_post', $post->ID ))
         return $post->ID;
 
+    $directory_meta['company_name'] = esc_sql($_POST['company_name']);
+    $directory_meta['contact_person'] = esc_sql($_POST['contact_person']);
+    $directory_meta['email_address'] = esc_sql($_POST['email_address']);
+    $directory_meta['phone'] = esc_sql($_POST['phone']);
+    $directory_meta['website_title_dir'] = esc_sql($_POST['website_title_dir']);
     $directory_meta['website'] = esc_sql($_POST['website']);
     $directory_meta['geo_location'] = esc_sql($_POST['geo_location']);
     $directory_meta['geo_latlng'] = str_replace(array('(', ')'), array('',''), esc_sql($_POST['geo_latlng']));

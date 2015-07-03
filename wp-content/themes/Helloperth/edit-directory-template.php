@@ -27,6 +27,12 @@ if(isset($_POST['submit_directory'])){
         $err_msg = 'Title is required.';
     }else if(empty($_POST['tax_input']['directories-cat'])){
         $err_msg = 'Please select al least one business diretcory category.';
+    }else if(empty($_POST['email_address'])){
+        $err_msg = 'Email address is required.';
+    }else if(filter_var($_POST['email_address'], FILTER_VALIDATE_EMAIL) == FALSE){
+        $err_msg = 'Please enter a valid email address.';
+    }else if(empty($_POST['phone'])){
+        $err_msg = 'Phone is required.';
     }else if(empty($_POST['website'])){
         $err_msg = 'Website is required.';
     }else if(filter_var($_POST['website'], FILTER_VALIDATE_URL) == FALSE){
@@ -65,7 +71,11 @@ if(isset($_POST['submit_directory'])){
             $keywords = rtrim($keywords,',');
             wp_set_post_terms($PID, $keywords, 'directories-tag', true );
 
-
+            $directory_meta['company_name'] = esc_sql($_POST['company_name']);
+            $directory_meta['contact_person'] = esc_sql($_POST['contact_person']);
+            $directory_meta['email_address'] = esc_sql($_POST['email_address']);
+            $directory_meta['phone'] = esc_sql($_POST['phone']);
+            $directory_meta['website_title_dir'] = esc_sql($_POST['website_title_dir']);
             $directory_meta['website'] = esc_sql($_POST['website']);
             $directory_meta['geo_location'] = esc_sql($_POST['geo_location']);
             $directory_meta['geo_latlng'] = str_replace(array('(', ')'), array('',''), esc_sql($_POST['geo_latlng']));
@@ -183,23 +193,55 @@ get_header();
                                 ?>
                             </ul>
                         </div>
+                        <div class="form-group-lists-div">
+                            <label>Keywords: </label>
+                            <?php 
+                                $keywards = get_terms_by_post($post_id, 'directories-tag', TRUE); 
+                                if(is_array($keywards) && !empty($keywards)){
+                                    $keywards = implode(',', $keywards);
+                                }
+                            ?>
+                            <input type="text" name="tags_input" id="tags_input" value="<?php echo (isset($_POST['tags_input'])) ? $_POST['tags_input'] : $keywards; ?>" class="form-control"/>
+                        </div>
                         <div class="grid-row">
                             <div class="grid-row-2">
                                 <div class="form-group-lists-div">
-                                    <label>Keywords: </label>
-                                    <?php 
-                                        $keywards = get_terms_by_post($post_id, 'directories-tag', TRUE); 
-                                        if(is_array($keywards) && !empty($keywards)){
-                                            $keywards = implode(',', $keywards);
-                                        }
-                                    ?>
-                                    <input type="text" name="tags_input" id="tags_input" value="<?php echo (isset($_POST['tags_input'])) ? $_POST['tags_input'] : $keywards; ?>" class="form-control"/>
+                                    <label>Company Name: </label>
+                                    <input type="text" name="company_name" id="company_name" value="<?php echo (isset($_POST['company_name'])) ? $_POST['company_name'] : get_post_meta($post_id, 'company_name', true); ?>" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="grid-row-2">
+                                <div class="form-group-lists-div">
+                                    <label>Contact Person: </label>
+                                    <input type="text" name="contact_person" id="contact_person" value="<?php echo (isset($_POST['contact_person'])) ? $_POST['contact_person'] : get_post_meta($post_id, 'contact_person', true); ?>" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-row">
+                            <div class="grid-row-2">
+                                <div class="form-group-lists-div">
+                                    <label>Email Address: </label>
+                                    <input type="email" name="email_address" required id="email_address" value="<?php echo (isset($_POST['email_address'])) ? $_POST['email_address'] : get_post_meta($post_id, 'email_address', true); ?>" class="form-control validate[required, custom[email]]"/>
+                                </div>
+                            </div>
+                            <div class="grid-row-2">
+                                <div class="form-group-lists-div">
+                                    <label>Phone: </label>
+                                    <input type="text" name="phone" id="phone" value="<?php echo (isset($_POST['phone'])) ? $_POST['phone'] : get_post_meta($post_id, 'phone', true); ?>" class="form-control validate[required, custom[number]]"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-row">
+                            <div class="grid-row-2">
+                                <div class="form-group-lists-div">
+                                    <label>Website Title: </label>
+                                    <input type="text" name="website_title_dir" id="website_title_dir" value="<?php echo (isset($_POST['website_title_dir'])) ? $_POST['website_title_dir'] : get_post_meta($post_id, 'website_title_dir', true); ?>" class="form-control"/>
                                 </div>
                             </div>
                             <div class="grid-row-2">
                                 <div class="form-group-lists-div">
                                     <label>Web Site: </label>
-                                    <input type="url" name="website" id="website" value="<?php echo (isset($_POST['website'])) ? $_POST['website'] : get_post_meta($post_id, 'website', true) ?>" class="form-control validate[required, custom[url]]"/>
+                                    <input type="url" name="website" id="website" value="<?php echo (isset($_POST['website'])) ? $_POST['website'] : get_post_meta($post_id, 'website', true); ?>" class="form-control validate[required, custom[url]]"/>
                                 </div>
                             </div>
                         </div>

@@ -29,6 +29,7 @@
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'wp_user_extended', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+                echo '<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">';
 	}
 
 	/**
@@ -65,13 +66,21 @@
                                 <label for="profile_pic"><?php _e(' Profile Picture', 'wp_user_extended' ); ?></label>
                             </th>
                             <td>
-                                <?php if($isset_profile_pic == 0) :?>
-                                <img id="dir_feature_image" src="<?php echo get_template_directory_uri(); ?>/images/photo_album_default.gif" width="200" height="150"/>
-                                <?php elseif($isset_profile_pic == 1): ?>
-                                <img id="dir_feature_image" src="<?php echo $profile_pic[0]; ?>" width="200" height="150"/>
-                                <?php endif; ?>
-                                <input id="upload_image_button" class="button" type="button" value="Upload Image" />&nbsp;
-                                <a href="javascript:void(0);" title="Remove image" id="remove_dir_feature_image" class="button">Remove Image</a>
+                                <div class="upload-image-block" id="figure_parent">
+                                    <figure class="upload-image-img" id="dir_feature_image" style="margin: 0;">
+                                        <?php if($isset_profile_pic == 1): ?>
+                                        <img src="<?php echo $profile_pic[0]; ?>" width="200" height="150" alt="Profile picture"/>
+                                        <?php endif; ?>
+                                        <?php if($isset_profile_pic == 1) :?>
+                                        <a href="javascript:void(0);" title="Remove image" id="remove_dir_feature_image" class="btn btn-remove-image"><i class="fa fa-times-circle"></i></a>
+                                        <?php endif; ?>
+                                    </figure>
+                                    <div class="upload-btn-group" id="control-div">
+                                        <?php if($isset_profile_pic == 0) :?>
+                                        <button id="upload_image_button" class="button btn upload-btn" type="button" value="Upload Image" ><i class="fa fa-plus-circle"></i><span>Upload Image</span></button>
+                                        <?php endif; ?>                                     
+                                    </div>
+                                </div>
                                 <input type="hidden" name="post_thumbnail" id="post_thumbnail" value="<?php echo $attachment_id; ?>" />
                             </td>
                         </tr>
