@@ -58,7 +58,12 @@ if(isset($_POST['submit_directory'])){
             $keywords = trim($_POST['tags_input']);
             $keywords = rtrim($keywords,',');
             wp_set_post_terms($PID, $keywords, 'directories-tag', true );
+            
+            if(empty($_POST['geo_latlng'])){
+                $results = parse_address_google(esc_sql($_POST['geo_location']), esc_sql($_POST['geo_zip_code']));
 
+            }
+            
             $directory_meta['company_name'] = esc_sql($_POST['company_name']);
             $directory_meta['contact_person'] = esc_sql($_POST['contact_person']);
             $directory_meta['email_address'] = esc_sql($_POST['email_address']);

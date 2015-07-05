@@ -283,3 +283,12 @@ function generate_math_captcha(){
     $_SESISON['ver_code'] = $answer;
     return $captcha;
 }
+
+function parse_address_google($location, $zipcode = '') {
+    $url = "https://maps.googleapis.com/maps/api/geocode/json?components=country:AU|postal_code:$zipcode&sensor=false&address=$location";
+    if(empty($zipcode)){
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?components=country:AU&sensor=false&address=$location";
+    }
+    $results = json_decode(file_get_contents($url),1);
+    return $results['results'][0];
+}

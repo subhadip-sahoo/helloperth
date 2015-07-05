@@ -269,7 +269,13 @@ function save_directories_meta($post_id, $post) {
 
     if ( !current_user_can( 'edit_post', $post->ID ))
         return $post->ID;
-
+    
+    if(empty($_POST['geo_latlng'])){
+        $results = parse_address_google(esc_sql($_POST['geo_location']), esc_sql($_POST['geo_zip_code']));
+        echo '<pre>';
+        print_r($results);
+    }
+    
     $directory_meta['company_name'] = esc_sql($_POST['company_name']);
     $directory_meta['contact_person'] = esc_sql($_POST['contact_person']);
     $directory_meta['email_address'] = esc_sql($_POST['email_address']);

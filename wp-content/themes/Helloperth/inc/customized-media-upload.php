@@ -26,6 +26,7 @@ function show_current_user_attachments( $query ) {
 }
 
 add_filter('wp_handle_upload_prefilter','media_upload_prefilter');
+
 function media_upload_prefilter($file){
     $filetype = wp_check_filetype($file['tmp_name']);
     $check_types = array('jpg', 'jpeg', 'jpe', 'gif', 'png');
@@ -46,9 +47,9 @@ function media_upload_prefilter($file){
     }
 }
 
-add_filter('upload_mimes', 'restrict_mime');
+//add_filter('upload_mimes', 'restrict_mime');
 
-function restrict_mime($mimes) {
+/*function restrict_mime($mimes) {
     global $user_ID;
     if($user_ID){
         $userdata = get_userdata($user_ID);
@@ -63,4 +64,4 @@ function restrict_mime($mimes) {
         return $mimes;
     }
     return $mimes;
-}
+}*/
