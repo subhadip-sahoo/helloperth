@@ -33,11 +33,12 @@ function media_upload_prefilter($file){
     if(!in_array($filetype['ext'], $check_types)){
         return $file;
     }
+    
     $img = getimagesize($file['tmp_name']);
     
     $width = $img[0];
     $height = $img[1];
-
+    
     if (($width / $height) > 3.5){
         return array('error' => 'Invalid image. Width is too large than height. Please try another image.');
     }else if(($height / $width) > 3.5){
@@ -47,9 +48,9 @@ function media_upload_prefilter($file){
     }
 }
 
-//add_filter('upload_mimes', 'restrict_mime');
+add_filter('upload_mimes', 'restrict_mime');
 
-/*function restrict_mime($mimes) {
+function restrict_mime($mimes) {
     global $user_ID;
     if($user_ID){
         $userdata = get_userdata($user_ID);
@@ -64,4 +65,4 @@ function media_upload_prefilter($file){
         return $mimes;
     }
     return $mimes;
-}*/
+}

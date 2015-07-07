@@ -28,8 +28,7 @@
 	 * @since 1.0.0
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'wp_user_extended', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-                echo '<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">';
+		load_plugin_textdomain( 'wp_user_extended', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );                
 	}
 
 	/**
@@ -39,7 +38,7 @@
 	 * @param object $user
 	 */
 	public function use_profile_field( $user ) {
-
+                echo '<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">';
 		// Only show this option to users who can delete other users
 		if ( !current_user_can( 'edit_users' ) )
 			return;
@@ -47,7 +46,7 @@
                 $attachment_id = get_the_author_meta( 'profile_pic', $user->ID );
                 $isset_profile_pic = 0;
                 if(is_numeric($attachment_id)){
-                    $profile_pic = wp_get_attachment_image_src($attachment_id, array(200, 150));
+                    $profile_pic = wp_get_attachment_image_src($attachment_id, 'full');
                     $isset_profile_pic = 1;
                 }
                 ?>
@@ -70,8 +69,6 @@
                                     <figure class="upload-image-img" id="dir_feature_image" style="margin: 0;">
                                         <?php if($isset_profile_pic == 1): ?>
                                         <img src="<?php echo $profile_pic[0]; ?>" width="200" height="150" alt="Profile picture"/>
-                                        <?php endif; ?>
-                                        <?php if($isset_profile_pic == 1) :?>
                                         <a href="javascript:void(0);" title="Remove image" id="remove_dir_feature_image" class="btn btn-remove-image"><i class="fa fa-times-circle"></i></a>
                                         <?php endif; ?>
                                     </figure>

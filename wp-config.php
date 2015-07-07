@@ -111,8 +111,10 @@ define( 'AUTOMATIC_UPDATER_DISABLED', true );
 define( 'WP_AUTO_UPDATE_CORE', false );
 
 /* wp disabled trash */
-
 define('EMPTY_TRASH_DAYS', 0);
+
+/* Bypass ftp for auto update */
+define('FS_METHOD','direct');
 
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
