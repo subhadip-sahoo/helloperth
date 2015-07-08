@@ -118,9 +118,10 @@
                         $msg .= "Username: ".esc_sql($_POST['user_login'])."<br/>";
 
                         wp_mail($to, $subject, $msg, $headers);
-
+                        
                         unset($_SESSION['security_code']);
                         unset($_POST);
+                        $_SESSION['session_msg'] = 'Your registration has been successfully completed. Please select a plan.';
                         wp_safe_redirect(href(MAKE_PAYMENT_PAGE)."/$act_key/$new_user_id");
                         exit();
                     }

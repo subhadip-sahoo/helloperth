@@ -48,8 +48,8 @@ get_header();
             get_template_part( 'content', 'page' );
         endwhile;
         ?>
-        <?php if(!empty($err_msg)): echo '<p style="color: red;">'.$err_msg.'</p>'; endif;?>
-        <?php if(!empty($war_msg)): echo '<p style="color: orange;">'.$war_msg.'</p>'; endif;?>
+        <?php if(!empty($err_msg)): echo message_alert($err_msg, 4); endif;?>
+        <?php if(!empty($war_msg)): echo message_alert($war_msg, 3); endif;?>
         <form name="reset_pwd" action="" method="POST" class="form_content">
             <p>
                 <label>New Password: </label>

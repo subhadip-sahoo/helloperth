@@ -121,30 +121,29 @@ function twentyfifteen_setup() {
         
         /* Adding custom image size */
         
-        add_image_size('list-desktop', 274, 204);
-        add_image_size('list-tablet', 1024, 289);
-        add_image_size('list-mobile', 767, 330);
-        add_image_size('list-popup', 429, 290);
-        add_image_size('list-news-n-events', 177, 137);
-        add_image_size('list-cat-slider', 332, 222);
-        add_image_size('list-events', 227, 154);
-        add_image_size('gallery-big', 619, 418);
-        add_image_size('gallery-thumb', 144, 97);
+        add_image_size('list-desktop', 274, 204, TRUE);
+        add_image_size('list-tablet', 1024, 289, TRUE);
+        add_image_size('list-mobile', 767, 330, TRUE);
+        add_image_size('list-popup', 429, 290, TRUE);
+        add_image_size('list-news-n-events', 177, 137, TRUE);
+        add_image_size('list-cat-slider', 332, 222, TRUE);
+        add_image_size('list-events', 227, 154, TRUE);
+        add_image_size('gallery-big', 619, 418, TRUE);
+        add_image_size('gallery-thumb', 144, 97, TRUE);
         
-        add_image_size('home_advertise_image_desktop', 426, 331);
-        add_image_size('home_advertise_image_tablet', 1024, 312);
-        add_image_size('home_advertise_image_mobile', 767, 441);
+        add_image_size('home_advertise_image_desktop', 426, 331, TRUE);
+        add_image_size('home_advertise_image_tablet', 1024, 312, TRUE);
+        add_image_size('home_advertise_image_mobile', 767, 441, TRUE);
         
-        add_image_size('home_block_image_desktop', 274, 230);
-        add_image_size('home_block_image_tablet', 1024, 289);
-        add_image_size('home_block_image_mobile', 767, 336);
+        add_image_size('home_block_image_desktop', 274, 230, TRUE);
+        add_image_size('home_block_image_tablet', 1024, 289, TRUE);
+        add_image_size('home_block_image_mobile', 767, 336, TRUE);
         
-        add_image_size('home_guide_image', 270, 381);
+        add_image_size('home_guide_image', 270, 381, TRUE);
         
         /* Set default local timezone */
         
         date_default_timezone_set(get_field('default_timezone', 'option'));
-       
 }
 endif; // twentyfifteen_setup
 add_action( 'after_setup_theme', 'twentyfifteen_setup' );

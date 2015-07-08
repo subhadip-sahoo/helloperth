@@ -41,6 +41,7 @@ function subscription_set_option($status, $option, $value) {
 }
 
 function user_subscription_details_main($per_page){    
+    session_start();
     global $wpdb, $table_name_users;
     require_once ABSPATH.'/wp-blog-header.php';
     if(isset($_REQUEST['cancel_subscr'])){
@@ -52,6 +53,8 @@ function user_subscription_details_main($per_page){
         }
         if('canceled' == $response = cancel_stripe_subscription($stripe_cus_id, $subscription_id)){
             $api_message = '<div class="updated" id="message"><p>' . sprintf(__('Subscription has been canceled successfully.', 'user_subscription_details')) . '</p></div>';
+            $_SESSION['disable_cancel'] = TRUE;
+            $_SESSION['id'] = $id;
         }else{
             $api_message = '<div id="notice" class="error"><p>' . sprintf(__('%s', 'user_subscription_details'), $response) . '</p></div>';
         }

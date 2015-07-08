@@ -121,6 +121,7 @@
 
                         unset($_SESSION['security_code']);
                         unset($_POST);
+                        $_SESSION['session_msg'] = 'Your registration has been successfully completed. Please select a plan.';
                         wp_safe_redirect(href(MAKE_PAYMENT_PAGE)."/$act_key/$new_user_id");
                         exit();
                     }
@@ -141,9 +142,9 @@
                     get_template_part( 'content', 'page' );
                 endwhile;
                 ?>
-                <?php if(!empty($err_msg)): echo '<p style="color: red;">'.$err_msg.'</p>'; endif;?>
-                <?php if(!empty($war_msg)): echo '<p style="color: orange;">'.$war_msg.'</p>'; endif;?>
-                <?php if(!empty($suc_msg)): echo '<p style="color: green;">'.$suc_msg.'</p>'; endif;?>
+                <?php if(!empty($err_msg)): echo message_alert($err_msg, 4); endif;?>
+                <?php if(!empty($war_msg)): echo message_alert($war_msg, 3); endif;?>
+                <?php if(!empty($suc_msg)): echo message_alert($suc_msg, 2); endif;?>
                 <form name="registration" action="" method="POST" class="form_content" id="registration">
                     <div class="registration-devider clearfix">
                         <div class="registration-block">

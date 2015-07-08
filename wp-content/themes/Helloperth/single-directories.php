@@ -53,6 +53,9 @@
             the_post();
         
 ?>
+
+<?php echo banner_directory_listing(); ?>
+
 <div class="main-container clearfix">
     <section class="main wrapper clearfix">
         <div class="single-container clearfix">
@@ -145,9 +148,9 @@
                             <div class="single-grid-block">
                                 <div class="single-quick-con-area">
                                     <h4>Quick Contact</h4>
-                                    <?php if(!empty($err_msg)): echo '<p style="color: red;">'.$err_msg.'</p>'; endif;?>
-                                    <?php if(!empty($war_msg)): echo '<p style="color: orange;">'.$war_msg.'</p>'; endif;?>
-                                    <?php if(!empty($suc_msg)): echo '<p style="color: green;">'.$suc_msg.'</p>'; endif;?>
+                                    <?php if(!empty($err_msg)): echo message_alert($err_msg, 4); endif;?>
+                                    <?php if(!empty($war_msg)): echo message_alert($war_msg, 3); endif;?>
+                                    <?php if(!empty($suc_msg)): echo message_alert($suc_msg, 2); endif;?>
                                     <form name="quick_contatc" id="quick_contatc" action="" method="POST">
                                         <p><input type="text" class="form-control validate[required]" placeholder="Name" name="cus_name" id="cus_name" value="<?php echo (isset($_POST['cus_name'])) ? $_POST['cus_name'] : ''; ?>"></p>
                                         <p><input type="email" class="form-control validate[required, custom[email]]" placeholder="Email Address" name="cus_email" id="cus_email" value="<?php echo (isset($_POST['cus_email'])) ? $_POST['cus_email'] : ''; ?>"></p>

@@ -65,7 +65,7 @@
                                 $event_image = wp_get_attachment_image_src(get_post_thumbnail_id($evt['post_id']), 'list-events');
 
                             ?>
-                                <li>
+                                <li><a href="<?php echo href(NEWS_N_EVENTS_PAGE) ;?>">
                                     <figure class="news-event-image">
                                         <?php if(!empty($event_image[0])) : ?>
                                         <img src="<?php echo $event_image[0]; ?>" alt="Image" width="177" height="137">
@@ -78,7 +78,7 @@
                                         <h2><?php echo date('d/m/Y', strtotime($evt['start_date'])); ?>  -  <?php echo date('d/m/Y', strtotime($evt['end_date'])); ?>&nbsp;<?php echo $event->post_title; ?></h2>
                                         <p><?php echo mb_strimwidth($event->post_content, 0, 200, '...'); ?></p>
                                         <p class="news-event-add"><?php echo get_field('location', $evt['post_id'], true); ?> <?php echo get_field('website', $evt['post_id'], true); ?></p>
-                                   </div>   
+                                    </div></a>   
                                 </li>
                             <?php endforeach; ?>
                             </ul>
@@ -105,7 +105,7 @@
                                     while(have_posts()) : the_post();
                                         $event_image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'list-events');
                                 ?>
-                                <li>
+                                <li><a href="<?php echo href(NEWS_PAGE) ;?>">
                                     <?php if(has_post_thumbnail()) : ?>
                                     <figure class="news-event-image">
                                         <img src="<?php echo $event_image[0]; ?>" alt="Image" width="177" height="137">
@@ -115,7 +115,7 @@
                                         <h2><?php the_title(); ?></h2>
                                         <p><?php echo mb_strimwidth(get_the_content(get_the_ID()), 0, 200, '...'); ?></p>
                                         <p class="news-event-add"></p>
-                                   </div>   
+                                    </div></a>   
                                 </li>
                                 <?php endwhile; ?>
                                 <?php wp_reset_query(); ?>

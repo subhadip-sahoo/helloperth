@@ -1021,40 +1021,47 @@ class WP_Subscription_List_Table {
 	 * @param object $item The current item
 	 */
 	protected function single_row_columns( $item ) {
-		list( $columns, $hidden ) = $this->get_column_info();
+            session_start();
+            list( $columns, $hidden ) = $this->get_column_info();
 
-		foreach ( $columns as $column_name => $column_display_name ) {
-			$class = "class='$column_name column-$column_name'";
+            foreach ( $columns as $column_name => $column_display_name ) {
+                $class = "class='$column_name column-$column_name'";
 
-			$style = '';
-			if ( in_array( $column_name, $hidden ) )
-				$style = ' style="display:none;"';
+                $style = '';
+                if ( in_array( $column_name, $hidden ) )
+                        $style = ' style="display:none;"';
 
-			$attributes = "$class$style";
+                $attributes = "$class$style";
 
-			if ( 'cb' == $column_name ) {
-				echo '<th scope="row" class="check-column">';
-				echo $this->column_cb( $item );
-				echo '</th>';
-			}
-			elseif ( method_exists( $this, 'column_' . $column_name ) ) {
-				echo "<td $attributes>";
-				echo call_user_func( array( $this, 'column_' . $column_name ), $item );
-				echo "</td>";
-			}
-			else {
-				echo "<td $attributes>";
-                                if($column_name == 'action' && $this->column_default( $item, 'subscription_status' ) == 'ACTIVE'){
-                                    echo '<input type="hidden" name="id" value="'.$this->column_default( $item, 'id' ).'"/>';
-                                    echo '<input type="submit" class="button button-primary" name="cancel_subscr" value="Cancel"/>';
-                                }else if($column_name == 'action' && $this->column_default( $item, 'subscription_status' ) == 'CANCELED'){
-                                    echo '<p class="description">CANCELED at '.date(DATETIME_DISPLAY_FORMAT, strtotime($item['subscription_canceled_at'])).'</p>';
-                                }else{
-                                    echo $this->column_default( $item, $column_name );
-                                }
-				echo "</td>";
-			}
-		}
+                if ( 'cb' == $column_name ) {
+                        echo '<th scope="row" class="check-column">';
+                        echo $this->column_cb( $item );
+                        echo '</th>';
+                }
+                elseif ( method_exists( $this, 'column_' . $column_name ) ) {
+                    echo "<td $attributes>";
+                    echo call_user_func( array( $this, 'column_' . $column_name ), $item );
+                    echo "</td>";
+                }
+                else {
+                    echo "<td $attributes>";
+                    if($column_name == 'action' && $this->column_default( $item, 'subscription_status' ) == 'ACTIVE'){
+                        echo '<input type="hidden" name="id" value="'.$this->column_default( $item, 'id' ).'"/>';
+                        $button_name = (isset($_SESSION['disable_cancel']) && $_SESSION['disable_cancel']) ? 'Processing' : 'Cancel';
+                        $attr = (isset($_SESSION['disable_cancel']) && $_SESSION['disable_cancel']) ? 'disabled' : '';
+                        if($_SESSION['id'] == $this->column_default( $item, 'id' )){
+                            echo '<input type="submit" class="button button-primary" name="cancel_subscr" value="'.$button_name.'" '.$attr.'/>';
+                        }else{
+                            echo '<input type="submit" class="button button-primary" name="cancel_subscr" value="Cancel"/>';
+                        }
+                    }else if($column_name == 'action' && $this->column_default( $item, 'subscription_status' ) == 'CANCELED'){
+                        echo '<p class="description">CANCELED at '.date(DATETIME_DISPLAY_FORMAT, strtotime($item['subscription_canceled_at'])).'</p>';
+                    }else{
+                        echo $this->column_default( $item, $column_name );
+                    }
+                    echo "</td>";
+                }
+            }
 	}
 
 	/**
@@ -1064,31 +1071,31 @@ class WP_Subscription_List_Table {
 	 * @access public
 	 */
 	public function ajax_response() {
-		$this->prepare_items();
+            $this->prepare_items();
 
-		ob_start();
-		if ( ! empty( $_REQUEST['no_placeholder'] ) ) {
-			$this->display_rows();
-		} else {
-			$this->display_rows_or_placeholder();
-		}
+            ob_start();
+            if ( ! empty( $_REQUEST['no_placeholder'] ) ) {
+                    $this->display_rows();
+            } else {
+                    $this->display_rows_or_placeholder();
+            }
 
-		$rows = ob_get_clean();
+            $rows = ob_get_clean();
 
-		$response = array( 'rows' => $rows );
+            $response = array( 'rows' => $rows );
 
-		if ( isset( $this->_pagination_args['total_items'] ) ) {
-			$response['total_items_i18n'] = sprintf(
-				_n( '1 item', '%s items', $this->_pagination_args['total_items'] ),
-				number_format_i18n( $this->_pagination_args['total_items'] )
-			);
-		}
-		if ( isset( $this->_pagination_args['total_pages'] ) ) {
-			$response['total_pages'] = $this->_pagination_args['total_pages'];
-			$response['total_pages_i18n'] = number_format_i18n( $this->_pagination_args['total_pages'] );
-		}
+            if ( isset( $this->_pagination_args['total_items'] ) ) {
+                    $response['total_items_i18n'] = sprintf(
+                            _n( '1 item', '%s items', $this->_pagination_args['total_items'] ),
+                            number_format_i18n( $this->_pagination_args['total_items'] )
+                    );
+            }
+            if ( isset( $this->_pagination_args['total_pages'] ) ) {
+                    $response['total_pages'] = $this->_pagination_args['total_pages'];
+                    $response['total_pages_i18n'] = number_format_i18n( $this->_pagination_args['total_pages'] );
+            }
 
-		die( wp_json_encode( $response ) );
+            die( wp_json_encode( $response ) );
 	}
 
 	/**

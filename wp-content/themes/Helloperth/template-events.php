@@ -3,7 +3,7 @@
     $events = event_sorting_by_date();
     get_header();
 ?>
-<!-- HTML CODE START -->
+<?php echo banner_directory_listing(); ?>
 <section class="main-container clearfix">
     <section class="main wrapper clearfix">
         <div class="news-event-container clearfix">

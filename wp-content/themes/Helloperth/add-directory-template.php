@@ -59,9 +59,15 @@ if(isset($_POST['submit_directory'])){
             $keywords = rtrim($keywords,',');
             wp_set_post_terms($PID, $keywords, 'directories-tag', true );
             
+            $geo_name = esc_sql($_POST['geo_name']);
+            $geo_address = esc_sql($_POST['geo_address']);
+            $geo_latlng = str_replace(array('(', ')'), array('',''), esc_sql($_POST['geo_latlng']));
+            
             if(empty($_POST['geo_latlng'])){
                 $results = parse_address_google(esc_sql($_POST['geo_location']), esc_sql($_POST['geo_zip_code']));
-
+                $geo_name = $results['address_components'][0]['long_name'];
+                $geo_address = $geo_name.', '.$results['address_components'][1]['long_name'];
+                $geo_latlng = $results['geometry']['location']['lat'].','.$results['geometry']['location']['lng'];
             }
             
             $directory_meta['company_name'] = esc_sql($_POST['company_name']);
@@ -71,9 +77,9 @@ if(isset($_POST['submit_directory'])){
             $directory_meta['website_title_dir'] = esc_sql($_POST['website_title_dir']);
             $directory_meta['website'] = esc_sql($_POST['website']);
             $directory_meta['geo_location'] = esc_sql($_POST['geo_location']);
-            $directory_meta['geo_latlng'] = str_replace(array('(', ')'), array('',''), esc_sql($_POST['geo_latlng']));
-            $directory_meta['geo_name'] = esc_sql($_POST['geo_name']);
-            $directory_meta['geo_address'] = esc_sql($_POST['geo_address']);
+            $directory_meta['geo_latlng'] = $geo_latlng;
+            $directory_meta['geo_name'] = $geo_name;
+            $directory_meta['geo_address'] = $geo_address;
             $directory_meta['geo_street_number'] = esc_sql($_POST['geo_street_number']);
             $directory_meta['geo_route'] = esc_sql($_POST['geo_route']);
             $directory_meta['geo_city'] = esc_sql($_POST['geo_city']);
@@ -154,9 +160,10 @@ get_header();
                     get_template_part( 'content', 'page' );
                 endwhile;
                 ?>
-                <?php if(!empty($err_msg)): echo '<p style="color: red;">'.$err_msg.'</p>'; endif;?>
-                <?php if(!empty($war_msg)): echo '<p style="color: orange;">'.$war_msg.'</p>'; endif;?>
-                <?php if(isset($_SESSION['session_msg']) && !empty($_SESSION['session_msg'])): echo '<p style="color: green;">'.$_SESSION['session_msg'].'</p>'; endif; unset($_SESSION['session_msg']);?>
+                <?php if(!empty($err_msg)): echo message_alert($err_msg, 4); endif;?>
+                <?php if(!empty($war_msg)): echo message_alert($war_msg, 3); endif;?>
+                <?php if(!empty($suc_msg)): echo message_alert($suc_msg, 2); endif;?>
+                <?php if(isset($_SESSION['session_msg']) && !empty($_SESSION['session_msg'])): echo message_alert($_SESSION['session_msg'], 2); endif; unset($_SESSION['session_msg']);?>
                 <form name="add_directory" id="add_directory" action="" method="POST" class="form_content" enctype="multipart/form-data">
                     <div class="form-group-lists">
                         <div class="form-group-lists-div">

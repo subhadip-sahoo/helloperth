@@ -15,6 +15,7 @@ get_header();
 <section class="main-container clearfix">
     <section class="main wrapper clearfix">
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+            <?php if(isset($_SESSION['session_msg']) && !empty($_SESSION['session_msg'])): echo message_alert($_SESSION['session_msg'], 2); endif; unset($_SESSION['session_msg']);?>
             <div class="page-inner-content-area clearfix">
                 <?php
                 while ( have_posts() ) : the_post();
@@ -41,7 +42,7 @@ get_header();
                                 <div class="payment-table-lists-description-area">
                                     <ul>
                                         <?php foreach ($package_features as $feature) : ?>
-                                        <li><?php echo $feature['features'] ?></li>
+                                        <li><?php echo $feature['features']; ?></li>
                                         <?php endforeach; ?>
                                     </ul>
                                 </div>

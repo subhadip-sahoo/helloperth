@@ -270,10 +270,15 @@ function save_directories_meta($post_id, $post) {
     if ( !current_user_can( 'edit_post', $post->ID ))
         return $post->ID;
     
+    $geo_name = esc_sql($_POST['geo_name']);
+    $geo_address = esc_sql($_POST['geo_address']);
+    $geo_latlng = str_replace(array('(', ')'), array('',''), esc_sql($_POST['geo_latlng']));
+
     if(empty($_POST['geo_latlng'])){
         $results = parse_address_google(esc_sql($_POST['geo_location']), esc_sql($_POST['geo_zip_code']));
-        echo '<pre>';
-        print_r($results);
+        $geo_name = $results['address_components'][0]['long_name'];
+        $geo_address = $geo_name.', '.$results['address_components'][1]['long_name'];
+        $geo_latlng = $results['geometry']['location']['lat'].','.$results['geometry']['location']['lng'];
     }
     
     $directory_meta['company_name'] = esc_sql($_POST['company_name']);
@@ -283,9 +288,9 @@ function save_directories_meta($post_id, $post) {
     $directory_meta['website_title_dir'] = esc_sql($_POST['website_title_dir']);
     $directory_meta['website'] = esc_sql($_POST['website']);
     $directory_meta['geo_location'] = esc_sql($_POST['geo_location']);
-    $directory_meta['geo_latlng'] = str_replace(array('(', ')'), array('',''), esc_sql($_POST['geo_latlng']));
-    $directory_meta['geo_name'] = esc_sql($_POST['geo_name']);
-    $directory_meta['geo_address'] = esc_sql($_POST['geo_address']);
+    $directory_meta['geo_latlng'] = $geo_latlng;
+    $directory_meta['geo_name'] = $geo_name;
+    $directory_meta['geo_address'] = $geo_address;
     $directory_meta['geo_street_number'] = esc_sql($_POST['geo_street_number']);
     $directory_meta['geo_route'] = esc_sql($_POST['geo_route']);
     $directory_meta['geo_city'] = esc_sql($_POST['geo_city']);

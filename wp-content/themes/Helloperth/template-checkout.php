@@ -27,9 +27,9 @@ get_header();
                     get_template_part( 'content', 'page' );
                 endwhile;
                 ?>
-                <?php if(!empty($err_msg)): echo '<p style="color: red;">'.$err_msg.'</p>'; endif;?>
-                <?php if(!empty($war_msg)): echo '<p style="color: orange;">'.$war_msg.'</p>'; endif;?>
-                <?php if(!empty($suc_msg)): echo '<p style="color: green;">'.$suc_msg.'</p>'; endif;?>
+                <?php if(!empty($err_msg)): echo message_alert($err_msg, 4); endif;?>
+                <?php if(!empty($war_msg)): echo message_alert($war_msg, 3); endif;?>
+                <?php if(!empty($suc_msg)): echo message_alert($suc_msg, 2); endif;?>
                 <form name="checkout-form" id="checkout-form" action="<?php echo href(CONFIRM_SUBSCRIPTION_PAGE).'/'.$key.'/'.$user; ?>" method="POST" class="form_content">
                     <span class="checkout-errors"></span>
                     <div class="registration-devider clearfix">

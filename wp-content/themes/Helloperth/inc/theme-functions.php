@@ -285,10 +285,41 @@ function generate_math_captcha(){
 }
 
 function parse_address_google($location, $zipcode = '') {
-    $url = "https://maps.googleapis.com/maps/api/geocode/json?components=country:AU|postal_code:$zipcode&sensor=false&address=$location";
+    $url = "https://maps.googleapis.com/maps/api/geocode/json?components=country:AU|postal_code:$zipcode&sensor=false&address=".urlencode($location);
     if(empty($zipcode)){
-        $url = "https://maps.googleapis.com/maps/api/geocode/json?components=country:AU&sensor=false&address=$location";
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?components=country:AU&sensor=false&address=".urlencode($location);
     }
     $results = json_decode(file_get_contents($url),1);
     return $results['results'][0];
+}
+
+function message_alert($msg, $msg_code){
+    $message = '';
+    switch($msg_code):
+        case 1: // info
+            $message .= '<div role="alert" class="alert alert-info alert-dismissibl">';
+            $message .= '<button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">X</span></button>';
+            $message .= $msg;
+            $message .= '</div>';
+            break;
+        case 2: // success
+            $message .= '<div role="alert" class="alert alert-success alert-dismissibl">';
+            $message .= '<button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">X</span></button>';
+            $message .= $msg;
+            $message .= '</div>';
+            break;
+        case 3: // warning
+            $message .= '<div role="alert" class="alert alert-warning alert-dismissibl">';
+            $message .= '<button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">X</span></button>';
+            $message .= $msg;
+            $message .= '</div>';
+            break;
+        case 4: // error
+            $message .= '<div role="alert" class="alert alert-danger alert-dismissibl">';
+            $message .= '<button aria-label="Close" data-dismiss="alert" class="close" type="button"><span aria-hidden="true">X</span></button>';
+            $message .= $msg;
+            $message .= '</div>';
+            break;
+    endswitch;
+    return $message;
 }

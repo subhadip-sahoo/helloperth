@@ -54,9 +54,9 @@ get_header();
                     get_template_part( 'content', 'page' );
                 endwhile; wp_reset_query();
                 ?>
-                <?php if(!empty($err_msg)): echo '<p style="color: red;">'.$err_msg.'</p>'; endif;?>
-                <?php if(!empty($war_msg)): echo '<p style="color: orange;">'.$war_msg.'</p>'; endif;?>
-                <?php if(!empty($suc_msg)): echo '<p style="color: green;">'.$suc_msg.'</p>'; endif;?>
+                <?php if(!empty($err_msg)): echo message_alert($err_msg, 4); endif;?>
+                <?php if(!empty($war_msg)): echo message_alert($war_msg, 3); endif;?>
+                <?php if(!empty($suc_msg)): echo message_alert($suc_msg, 2); endif;?>
                 <form name="checkout-confirm" id="checkout-confirm" action="" method="POST" class="form_content">
                     <div class="registration-devider clearfix">
                         <div class="registration-block">

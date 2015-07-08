@@ -28,21 +28,20 @@ function show_current_user_attachments( $query ) {
 add_filter('wp_handle_upload_prefilter','media_upload_prefilter');
 
 function media_upload_prefilter($file){
-    $filetype = wp_check_filetype($file['tmp_name']);
-    $check_types = array('jpg', 'jpeg', 'jpe', 'gif', 'png');
-    if(!in_array($filetype['ext'], $check_types)){
-        return $file;
-    }
-    
-    $img = getimagesize($file['tmp_name']);
-    
-    $width = $img[0];
-    $height = $img[1];
-    
-    if (($width / $height) > 3.5){
-        return array('error' => 'Invalid image. Width is too large than height. Please try another image.');
-    }else if(($height / $width) > 3.5){
-        return array('error' => 'Invalid image. Height is too large than width. Please try another image.');
+    $ext =  substr(strrchr($file['name'],'.'),1);
+    $check_types = array('jpg', 'jpeg', 'jpe', 'gif', 'png', 'JPG', 'JPEG');
+    if(in_array($ext, $check_types)){
+        $img = getimagesize($file['tmp_name']);
+        $width = $img[0];
+        $height = $img[1];
+
+        if (($width / $height) > 3.5){
+            return array('error' => 'Invalid image. Width is too large than height. Please try another image.');
+        }else if(($height / $width) > 3.5){
+            return array('error' => 'Invalid image. Height is too large than width. Please try another image.');
+        }else{
+            return $file;
+        }
     }else{
         return $file; 
     }

@@ -81,19 +81,20 @@
                     get_template_part( 'content', 'page' );
                 endwhile; wp_reset_query();
                 ?>
-                <?php if(!empty($err_msg)): echo '<p style="color: red;">'.$err_msg.'</p>'; endif;?>
-                <?php if(!empty($war_msg)): echo '<p style="color: orange;">'.$war_msg.'</p>'; endif;?>
-                <?php if(isset($_SESSION['session_msg']) && !empty($_SESSION['session_msg'])): echo '<p style="color: green;">'.$_SESSION['session_msg'].'</p>'; endif; unset($_SESSION['session_msg']);?>
-                <?php if(isset($_SESSION['session_msg_error']) && !empty($_SESSION['session_msg_error'])): echo '<p style="color: red;">'.$_SESSION['session_msg_error'].'</p>'; endif; unset($_SESSION['session_msg_error']);?>
+                <?php if(!empty($err_msg)): echo message_alert($err_msg, 4); endif;?>
+                <?php if(!empty($war_msg)): echo message_alert($war_msg, 3); endif;?>
+                <?php if(!empty($suc_msg)): echo message_alert($suc_msg, 2); endif;?>
+                <?php if(isset($_SESSION['session_msg']) && !empty($_SESSION['session_msg'])): echo message_alert($_SESSION['session_msg'], 2); endif; unset($_SESSION['session_msg']);?>
+                <?php if(isset($_SESSION['session_msg_error']) && !empty($_SESSION['session_msg_error'])): echo message_alert($_SESSION['session_msg_error'], 4); endif; unset($_SESSION['session_msg_error']);?>
                 <form name="login" action="" method="POST" class="form_content">
                     <div class="login-form-grp">
                         <dl>
-                          <dt><label>Username: </label></dt>
-                          <dd><input type="text" name="user_login" id="user_login" value="" class="form-control" /></dd>
-                          <dt><label>Password: </label></dt>
-                          <dd><input type="password" name="user_pass" id="user_pass" value="" class="form-control" /></dd>
-                          <dt></dt>
-                          <dd><label for="rememberme"><input type="checkbox" name="rememberme" value="on"> Remember me</label></dd>
+                            <dt><label>Username: </label></dt>
+                            <dd><input type="text" name="user_login" id="user_login" value="" class="form-control" /></dd>
+                            <dt><label>Password: </label></dt>
+                            <dd><input type="password" name="user_pass" id="user_pass" value="" class="form-control" /></dd>
+                            <dt></dt>
+                            <dd><label for="rememberme"><input type="checkbox" name="rememberme" value="on"> Remember me</label></dd>
                         </dl>
                     </div>
                     <?php //do_action('login_form');?>
