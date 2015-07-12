@@ -47,7 +47,6 @@
         }
     }
     get_header(); 
-    banner_directory_listing(); 
     if(have_posts()):
         while(have_posts()) :
             the_post();
@@ -67,7 +66,7 @@
             <div class="single-content clearfix">
                 <div class="single-content-area clearfix">
                     <div class="grid-row">
-                        <div class="grid-row-2 garry_left">
+                        <div class="grid-row-7a">
                             <div class="single-grid-block">
                                 <header class="site-heading">
                                     <h2><?php the_title(); ?></h2>
@@ -96,7 +95,7 @@
                         </div>
                         <?php $get_all_images = get_post_meta($post->ID, '_easy_image_gallery', TRUE); ?>
                         <?php if(!empty($get_all_images)): ?>
-                        <div class="grid-row-2 garry_right">
+                        <div class="grid-row-5a">
                             <div class="single-grid-block">
                                 <div class="single-slider-area">
                                     <div id="single-slider" class="single-slider-flex flexslider">
@@ -144,7 +143,18 @@
                 </div>
                 <div class="single-contact-map-area clearfix">
                     <div class="grid-row">
-                        <div class="grid-row-2">
+                        <div class="grid-row-7a">
+                            <div class="single-grid-block">
+                                <div class="single-map-area">
+                                    <div id="map-single" style="width: 627px; height: 410px;"></div>
+                                    <a href="#larger_map" class="click-large-view-map">Click to view larger map <i class="icon icon-search"></i></a>
+                                </div>
+                            </div>
+                            <div id="larger_map" class="zoom-anim-dialog mfp-hide perth-popup-container">
+                                <div id="map-single" style="width: 800px; height: 400px;"></div>
+                            </div>
+                        </div>
+                        <div class="grid-row-5a">
                             <div class="single-grid-block">
                                 <div class="single-quick-con-area">
                                     <h4>Quick Contact</h4>
@@ -159,17 +169,6 @@
                                         <p><input type="submit" class="btn btn-submit" value="Submit" name="quick_contact"></p>
                                     </form>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="grid-row-2">
-                            <div class="single-grid-block">
-                                <div class="single-map-area">
-                                    <div id="map-single" style="width: 627px; height: 410px;"></div>
-                                    <a href="#larger_map" class="click-large-view-map">Click to view larger map <i class="icon icon-search"></i></a>
-                                </div>
-                            </div>
-                            <div id="larger_map" class="zoom-anim-dialog mfp-hide perth-popup-container">
-                                <div id="map-single" style="width: 800px; height: 400px;"></div>
                             </div>
                         </div>
                     </div>

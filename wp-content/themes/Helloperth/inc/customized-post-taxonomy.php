@@ -204,23 +204,23 @@ function street_section() {
     </p>
     <p>
         <label>Email Address: </label>
-        <input type="email" name="email_address" id="email_address" value="<?php echo get_post_meta($post->ID, 'email_address', true) ?>" required style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0">
+        <input type="email" name="email_address" id="email_address" value="<?php echo get_post_meta($post->ID, 'email_address', true) ?>" style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0">
     </p>
     <p>
         <label>Phone: </label>
-        <input type="text" name="phone" id="phone" value="<?php echo get_post_meta($post->ID, 'phone', true) ?>" required style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0"/>
+        <input type="text" name="phone" id="phone" value="<?php echo get_post_meta($post->ID, 'phone', true) ?>" style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0"/>
     </p>
     <p>
         <label>Website Title: </label>
-        <input type="text" name="website_title_dir" id="website_title_dir" value="<?php echo get_post_meta($post->ID, 'website_title_dir', true) ?>" required style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0">
+        <input type="text" name="website_title_dir" id="website_title_dir" value="<?php echo get_post_meta($post->ID, 'website_title_dir', true) ?>" style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0">
     </p>
     <p>
         <label>Website: </label>
-        <input type="url" name="website" id="website" value="<?php echo get_post_meta($post->ID, 'website', true) ?>" required style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0">
+        <input type="url" name="website" id="website" value="<?php echo get_post_meta($post->ID, 'website', true) ?>" style="width: 100%; top: 0; left: 0; margin: 0 0 20px 0">
     </p>
     <div id="locationField">
         <label>Location: </label>
-        <input id="autocomplete" autocomplete="off" name="geo_location" placeholder="Enter location" type="text" value="<?php echo get_post_meta($post->ID, 'geo_location', true); ?>" required>
+        <input id="autocomplete" autocomplete="off" name="geo_location" placeholder="Enter location" type="text" value="<?php echo get_post_meta($post->ID, 'geo_location', true); ?>">
         <input id="geo_latlng" name="geo_latlng" type="hidden" value="<?php echo get_post_meta($post->ID, 'geo_latlng', true); ?>">
         <input id="geo_name" name="geo_name" type="hidden" value="<?php echo get_post_meta($post->ID, 'geo_name', true); ?>">
         <input id="geo_address" name="geo_address" type="hidden" value="<?php echo get_post_meta($post->ID, 'geo_address', true); ?>">
@@ -233,17 +233,17 @@ function street_section() {
       </tr>
       <tr>
         <td class="label">City</td>
-        <td class="wideField" colspan="3"><input class="field" id="locality" name="geo_city" value="<?php echo get_post_meta($post->ID, 'geo_city', true); ?>" required></td>
+        <td class="wideField" colspan="3"><input class="field" id="locality" name="geo_city" value="<?php echo get_post_meta($post->ID, 'geo_city', true); ?>"></td>
       </tr>
       <tr>
         <td class="label">State</td>
-        <td class="slimField"><input class="field" id="administrative_area_level_1" name="geo_state" value="<?php echo get_post_meta($post->ID, 'geo_state', true); ?>" required></td>
+        <td class="slimField"><input class="field" id="administrative_area_level_1" name="geo_state" value="<?php echo get_post_meta($post->ID, 'geo_state', true); ?>"></td>
         <td class="label">Zip code</td>
-        <td class="wideField"><input class="field" id="postal_code" name="geo_zip_code" value="<?php echo get_post_meta($post->ID, 'geo_zip_code', true); ?>" required></td>
+        <td class="wideField"><input class="field" id="postal_code" name="geo_zip_code" value="<?php echo get_post_meta($post->ID, 'geo_zip_code', true); ?>"></td>
       </tr>
       <tr>
         <td class="label">Country</td>
-        <td class="wideField" colspan="3"><input class="field" name="geo_country" id="country" value="<?php echo get_post_meta($post->ID, 'geo_country', true); ?>" required></td>
+        <td class="wideField" colspan="3"><input class="field" name="geo_country" id="country" value="<?php echo get_post_meta($post->ID, 'geo_country', true); ?>"></td>
       </tr>
     </table>
     <div id="map-canvas" style="height: 300px;"></div>   
@@ -420,7 +420,9 @@ function get_directory_latlng($term = ''){
             $latlng['lng'] = $geo_latlng[1];
             $latlng['title'] = get_the_title();
             $latlng['content'] = mb_strimwidth(get_the_content(), 0, 300, '[...]');
-            array_push($latlng_ar, $latlng);
+            if(!empty($latlng['lat']) && !empty($latlng['lng'])){
+                array_push($latlng_ar, $latlng);
+            }
         }
         wp_reset_query();
     }

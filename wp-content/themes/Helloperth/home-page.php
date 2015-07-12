@@ -4,7 +4,7 @@
 ?>
 <section class="banner-container clearfix">
     <div class="banner-slider-container clearfix">
-        <?php query_posts(array('post_type' => 'sliders', 'posts_per_page' => -1)); ?>
+        <?php query_posts(array('post_type' => 'sliders', 'posts_per_page' => -1, 'order' => 'ASC')); ?>
         <?php if(have_posts()) : ?>
         <div class="flexslider banner-slider">
             <ul class="slides">
@@ -42,94 +42,96 @@
 
 <section class="main-container clearfix">
     <section class="main wrapper clearfix">
-        <div id="tabs">
-            <ul>
-                <li><a href="#tabs-events">Events</a></li>
-                <li><a href="#tabs-news">News</a></li>
-            </ul>
-            <div id="tabs-events">
-                <div class="news-events-container clearfix">
-                    <!--<h3 class="news-event-heading">EVENTS</h3>-->
-                    <?php 
-                        $events = event_sorting_by_date(); 
-                        if($events <> 0) :
-                    ?>
-                    <a href="<?php echo href(NEWS_N_EVENTS_PAGE); ?>" class="link-view-full hide-tablet">View full list <i class="fa fa-arrow-circle-o-right"></i></a>
-                    <div class="news-events-slider clearfix">
-                        <div class="flexslider news-event-slider">
-                            <ul class="slides">
-                            <?php 
-                            foreach($events as $evt) : 
-                                if(strtotime(date('Y-m-d')) > strtotime($evt['end_date'])) : continue; endif; 
-                                $event = get_post($evt['post_id']);
-                                $event_image = wp_get_attachment_image_src(get_post_thumbnail_id($evt['post_id']), 'list-events');
-
-                            ?>
-                                <li><a href="<?php echo href(NEWS_N_EVENTS_PAGE) ;?>">
-                                    <figure class="news-event-image">
-                                        <?php if(!empty($event_image[0])) : ?>
-                                        <img src="<?php echo $event_image[0]; ?>" alt="Image" width="177" height="137">
-                                        <?php else: ?>
-                                        <img src="<?php echo get_template_directory_uri(); ?>/images/no-image-events.png" alt="Image" width="177" height="137">
-                                        <?php endif; ?>
-                                    </figure>
-                                   
-                                    <div class="news-events-content">
-                                        <h2><?php echo date('d/m/Y', strtotime($evt['start_date'])); ?>  -  <?php echo date('d/m/Y', strtotime($evt['end_date'])); ?>&nbsp;<?php echo $event->post_title; ?></h2>
-                                        <p><?php echo mb_strimwidth($event->post_content, 0, 200, '...'); ?></p>
-                                        <p class="news-event-add"><?php echo get_field('location', $evt['post_id'], true); ?> <?php echo get_field('website', $evt['post_id'], true); ?></p>
-                                    </div></a>   
-                                </li>
-                            <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </div>
-                    <a href="<?php echo href(NEWS_N_EVENTS_PAGE); ?>" class="link-view-full hide-desktop">View full list <i class="fa fa-arrow-circle-o-right"></i></a>
-                    <?php else: ?>
-                    <p>Currently there are no events to display!</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <div id="tabs-news">
-                <div class="news-events-container clearfix">
-                    <!--<h3 class="news-event-heading">EVENTS</h3>-->
-                    <?php 
-                        query_posts(array('post_type' => 'news', 'posts_per_page' => -1, 'post_status' => 'publish'));
-                        if(have_posts()) :
-                    ?>
-                    <a href="<?php echo href(NEWS_PAGE); ?>" class="link-view-full hide-tablet">View full list <i class="fa fa-arrow-circle-o-right"></i></a>
-                    <div class="news-events-slider clearfix">
-                        <div class="flexslider news-event-slider">
-                            <ul class="slides">
+        <div class="homenews-event-container clearfix">
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-events">Events</a></li>
+                    <li><a href="#tabs-news">News</a></li>
+                </ul>
+                <div id="tabs-events">
+                    <div class="news-events-container clearfix">
+                        <!--<h3 class="news-event-heading">EVENTS</h3>-->
+                        <?php 
+                            $events = event_sorting_by_date(); 
+                            if($events <> 0) :
+                        ?>
+                        <a href="<?php echo href(NEWS_N_EVENTS_PAGE); ?>" class="link-view-full hide-tablet">View full list <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <div class="news-events-slider clearfix">
+                            <div class="flexslider news-event-slider">
+                                <ul class="slides">
                                 <?php 
-                                    while(have_posts()) : the_post();
-                                        $event_image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'list-events');
+                                foreach($events as $evt) : 
+                                    if(strtotime(date('Y-m-d')) > strtotime($evt['end_date'])) : continue; endif; 
+                                    $event = get_post($evt['post_id']);
+                                    $event_image = wp_get_attachment_image_src(get_post_thumbnail_id($evt['post_id']), 'list-events');
+
                                 ?>
-                                <li><a href="<?php echo href(NEWS_PAGE) ;?>">
-                                    <?php if(has_post_thumbnail()) : ?>
-                                    <figure class="news-event-image">
-                                        <img src="<?php echo $event_image[0]; ?>" alt="Image" width="177" height="137">
-                                    </figure>
-                                    <?php endif; ?>
-                                    <div class="news-events-content">
-                                        <h2><?php the_title(); ?></h2>
-                                        <p><?php echo mb_strimwidth(get_the_content(get_the_ID()), 0, 200, '...'); ?></p>
-                                        <p class="news-event-add"></p>
-                                    </div></a>   
-                                </li>
-                                <?php endwhile; ?>
-                                <?php wp_reset_query(); ?>
-                            </ul>
+                                    <li><a href="<?php echo href(NEWS_N_EVENTS_PAGE) ;?>">
+                                        <figure class="news-event-image">
+                                            <?php if(!empty($event_image[0])) : ?>
+                                            <img src="<?php echo $event_image[0]; ?>" alt="Image" width="177" height="137">
+                                            <?php else: ?>
+                                            <img src="<?php echo get_template_directory_uri(); ?>/images/no-image-events.png" alt="Image" width="177" height="137">
+                                            <?php endif; ?>
+                                        </figure>
+                                       
+                                        <div class="news-events-content">
+                                            <h2><?php echo date('d/m/Y', strtotime($evt['start_date'])); ?>  -  <?php echo date('d/m/Y', strtotime($evt['end_date'])); ?>&nbsp;<?php echo $event->post_title; ?></h2>
+                                            <p><?php echo mb_strimwidth($event->post_content, 0, 200, '...'); ?></p>
+                                            <p class="news-event-add"><?php echo get_field('location', $evt['post_id'], true); ?> <?php echo get_field('website', $evt['post_id'], true); ?></p>
+                                        </div></a>   
+                                    </li>
+                                <?php endforeach; ?>
+                                </ul>
+                            </div>
                         </div>
+                        <a href="<?php echo href(NEWS_N_EVENTS_PAGE); ?>" class="link-view-full hide-desktop">View full list <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <?php else: ?>
+                        <p>Currently there are no events to display!</p>
+                        <?php endif; ?>
                     </div>
-                    <a href="<?php echo href(NEWS_PAGE); ?>" class="link-view-full hide-desktop">View full list <i class="fa fa-arrow-circle-o-right"></i></a>
-                    <?php else: ?>
-                    <p>Currently there are no news to display!</p>
-                    <?php endif; ?>
+                </div>
+                <div id="tabs-news">
+                    <div class="news-events-container clearfix">
+                        <!--<h3 class="news-event-heading">EVENTS</h3>-->
+                        <?php 
+                            query_posts(array('post_type' => 'news', 'posts_per_page' => -1, 'post_status' => 'publish'));
+                            if(have_posts()) :
+                        ?>
+                        <a href="<?php echo href(NEWS_PAGE); ?>" class="link-view-full hide-tablet">View full list <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <div class="news-events-slider clearfix">
+                            <div class="flexslider news-event-slider">
+                                <ul class="slides">
+                                    <?php 
+                                        while(have_posts()) : the_post();
+                                            $event_image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'list-events');
+                                    ?>
+                                    <li><a href="<?php echo href(NEWS_PAGE) ;?>">
+                                        <?php if(has_post_thumbnail()) : ?>
+                                        <figure class="news-event-image">
+                                            <img src="<?php echo $event_image[0]; ?>" alt="Image" width="177" height="137">
+                                        </figure>
+                                        <?php endif; ?>
+                                        <div class="news-events-content">
+                                            <h2><?php the_title(); ?></h2>
+                                            <p><?php echo mb_strimwidth(get_the_content(get_the_ID()), 0, 200, '...'); ?></p>
+                                            <p class="news-event-add"></p>
+                                        </div></a>   
+                                    </li>
+                                    <?php endwhile; ?>
+                                    <?php wp_reset_query(); ?>
+                                </ul>
+                            </div>
+                        </div>
+                        <a href="<?php echo href(NEWS_PAGE); ?>" class="link-view-full hide-desktop">View full list <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <?php else: ?>
+                        <p>Currently there are no news to display!</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
-
+        
         <?php echo best_of_perth(); ?>
 
         <section class="left-right-blocks-container clearfix">

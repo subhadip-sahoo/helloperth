@@ -73,7 +73,6 @@
         <script src="<?php echo get_template_directory_uri();?>/js/jquery.validationEngine-en.js"></script>
         <script src="<?php echo get_template_directory_uri();?>/js/jquery.validationEngine.js"></script>
         <script src="<?php echo get_template_directory_uri();?>/js/main.js"></script>
-        <?php if($directory_slug <> ''): ?>
         <script type="text/javascript">
             var markers = [];
             var map;
@@ -170,10 +169,6 @@
             });
             
         </script>
-        <?php 
-            endif;
-            if(is_single()) : 
-        ?>
         <script type="text/javascript">
             var markers_single = [];
             var map_single;
@@ -239,9 +234,6 @@
                 }
             });
         </script>
-        <?php endif;
-            if(is_front_page()) : 
-        ?>
         <script type="text/javascript">
             var markers_home = [];
             var map_home;
@@ -291,7 +283,6 @@
             }
             initialize_all_directories();
         </script>
-        <?php endif; ?>
         <?php wp_footer(); ?>
     </body>
 </html>
