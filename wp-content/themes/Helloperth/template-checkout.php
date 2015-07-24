@@ -13,6 +13,10 @@ if(!check_valid_user($user, $key)){
     wp_safe_redirect(href(LOGIN_PAGE));
     exit();
 }
+if(!isset($_POST)){
+    wp_safe_redirect(href(MAKE_PAYMENT_PAGE).'/'.$key.'/'.$user);
+    exit();
+}
 $err_msg = '';
 $war_msg = '';
 $suc_msg = '';

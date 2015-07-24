@@ -16,9 +16,11 @@
         }
         
         if($err_msg == ''){
-            if(isset($_SESSION['ver_code']) && $_SESSION['ver_code'] == $_POST['ver_code']){
-                $to = get_the_author_meta('user_email', $post->post_author);
-                $display_name = get_the_author_meta('display_name', $post->post_author);
+            if(isset($_POST['answar']) && $_POST['answar'] == $_POST['ver_code']){
+                $to = (get_post_meta($post->ID, 'email_address', TRUE) <> '') ? get_post_meta($post->ID, 'email_address', TRUE) : $userdata->user_email;
+//                $to = get_the_author_meta('user_email', $post->post_author);
+//                $display_name = get_the_author_meta('display_name', $post->post_author);
+                $display_name = (get_post_meta($post->ID, 'contact_person', TRUE) <> '') ? get_post_meta($post->ID, 'contact_person', TRUE) : get_the_author_meta('display_name', $post->post_author);
                 $from = esc_attr($_POST['cus_email']);
                 $from_name = esc_attr($_POST['cus_name']);
                 $message = $_POST['cus_message'];
@@ -46,15 +48,13 @@
             }
         }
     }
+    $userdata = get_userdata($post->post_author);
     get_header(); 
     if(have_posts()):
         while(have_posts()) :
             the_post();
-        
 ?>
-
-<?php echo banner_directory_listing(); ?>
-
+<?php echo mini_banner_listing(); ?>
 <div class="main-container clearfix">
     <section class="main wrapper clearfix">
         <div class="single-container clearfix">
@@ -73,16 +73,19 @@
                                 </header>
                                 <div class="single-loaction">
                                     <div class="grid-row">
+                                        <?php if(get_post_meta($post->ID, 'geo_location', TRUE) <> ''): ?>
                                         <div class="grid-row-2">
                                             <h4 class="location-title-icon">Location</h4>
                                             <p class="map_box"><a target="_blank" href="https://www.google.com/maps/place/<?php echo urlencode(get_post_meta($post->ID, 'geo_location', TRUE)); ?>"><?php echo get_post_meta($post->ID, 'geo_location', TRUE); ?></a></p>
                                         </div>
+                                        <?php endif; ?>
                                         <div class="grid-row-2">
                                             <h4>Contact Info</h4>
                                             <p class="tel-number-icon"><?php echo get_post_meta($post->ID, 'phone', TRUE); ?></p>
+                                            <?php $contact_email = (get_post_meta($post->ID, 'email_address', TRUE) <> '') ? get_post_meta($post->ID, 'email_address', TRUE) : $userdata->user_email; ?>
                                             <p class="website-icon">
-                                                <a href="mailto:<?php echo get_post_meta($post->ID, 'email_address', TRUE); ?>">
-                                                    <?php echo get_post_meta($post->ID, 'email_address', TRUE); ?>
+                                                <a href="mailto:<?php echo $contact_email; ?>">
+                                                    <?php echo $contact_email; ?>
                                                 </a>
                                             </p>
                                         </div>
@@ -147,7 +150,10 @@
                             <div class="single-grid-block">
                                 <div class="single-map-area">
                                     <div id="map-single" style="width: 627px; height: 410px;"></div>
-                                    <a href="#larger_map" class="click-large-view-map">Click to view larger map <i class="icon icon-search"></i></a>
+                                    <!--<a href="#larger_map" class="click-large-view-map">Click to view larger map <i class="icon icon-search"></i></a>-->
+                                    <?php if(get_post_meta($post->ID, 'geo_location', TRUE) <> ''): ?>
+                                    <a href="https://www.google.com/maps/place/<?php echo urlencode(get_post_meta($post->ID, 'geo_location', TRUE)); ?>" target="_blank" class="click-large-view-map">Click to view larger map <i class="icon icon-search"></i></a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div id="larger_map" class="zoom-anim-dialog mfp-hide perth-popup-container">

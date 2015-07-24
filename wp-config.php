@@ -94,6 +94,7 @@ define('CONFIRM_SUBSCRIPTION_PAGE', 197);
 define('SUBSCRIPTION_COMPLETE_PAGE', 211); // 260
 define('NEWS_PAGE', 260);
 define('GUIDE_PICKUP_LOCATIONS_PAGE', 373);
+define('MAPS_PAGE', 282);
 
 /* HOME PAGE */
 
@@ -113,7 +114,7 @@ define( 'AUTOMATIC_UPDATER_DISABLED', true );
 define( 'WP_AUTO_UPDATE_CORE', false );
 
 /* wp disabled trash */
-define('EMPTY_TRASH_DAYS', 0);
+//define('EMPTY_TRASH_DAYS', 0);
 
 /* Bypass ftp for auto update */
 define('FS_METHOD','direct');

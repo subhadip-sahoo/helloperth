@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<?php echo banner_directory_listing(); ?>
+<?php echo mini_banner_listing(); ?>
 <section class="main-container clearfix">
     <section class="main wrapper clearfix">
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

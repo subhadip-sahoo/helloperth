@@ -16,7 +16,11 @@ class acf_Relationship extends acf_Field
 	function __construct($parent)
 	{
     	parent::__construct($parent);
-    	
+        
+    	if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
     	$this->name = 'relationship';
 		$this->title = __("Relationship",'acf');
 		
@@ -245,7 +249,11 @@ class acf_Relationship extends acf_Field
 	
 	function create_field($field)
 	{
-		// vars
+            
+            if(isset($_SESSION['edit_tag_ID'])){
+                unset($_SESSION['edit_tag_ID']);
+            }
+                // vars
 		$defaults = array(
 			'post_type'	=>	'',
 			'max' 		=>	-1,
@@ -271,10 +279,14 @@ class acf_Relationship extends acf_Field
 		{
 			$field['post_type'] = $this->parent->get_post_types();
 		}
-		
+//		echo '<pre>';
+//                print_r($_REQUEST);
+                if(isset($_REQUEST['option_name']) && !empty($_REQUEST['option_name'])){
+                    $_SESSION['edit_tag_ID'] = abs(filter_var($_REQUEST['option_name'], FILTER_SANITIZE_NUMBER_INT));
+                }
 		
 		?>
-<div class="acf_relationship" data-max="<?php echo $field['max']; ?>" data-s="" data-paged="1" data-post_type="<?php echo implode(',', $field['post_type']); ?>" data-taxonomy="<?php echo implode(',', $field['taxonomy']); ?>" <?php if( defined('ICL_LANGUAGE_CODE') ){ echo 'data-lang="' . ICL_LANGUAGE_CODE . '"';} ?>>
+<div class="acf_relationship" data-max="<?php echo $field['max']; ?>" data-s="" data-paged="1" data-post_type="<?php echo implode(',', $field['post_type']); ?>" data-taxonomy="" <?php if( defined('ICL_LANGUAGE_CODE') ){ echo 'data-lang="' . ICL_LANGUAGE_CODE . '"';} ?>>
 	
 	<!-- Hidden Blank default value -->
 	<input type="hidden" name="<?php echo $field['name']; ?>" value="" />

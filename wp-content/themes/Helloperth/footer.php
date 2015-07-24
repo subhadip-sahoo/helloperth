@@ -12,10 +12,10 @@
                         <div class="footer-social">
                             <ul>
                                 <li><a href="<?php echo(get_field('envelope_url','option')) ? get_field('envelope_url','option') : '#'; ?>"><i class="fa fa-envelope"></i></a></li>
-                                <li><a href="<?php echo(get_field('facebook_url','option')) ? get_field('facebook_url','option') : '#'; ?>"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="<?php echo(get_field('twitter_url','option')) ? get_field('twitter_url','option') : '#'; ?>"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="<?php echo(get_field('instagram_url','option')) ? get_field('instagram_url','option') : '#'; ?>"><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="<?php echo(get_field('pinterest_url','option')) ? get_field('pinterest_url','option') : '#'; ?>"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="<?php echo(get_field('facebook_url','option')) ? get_field('facebook_url','option') : '#'; ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="<?php echo(get_field('twitter_url','option')) ? get_field('twitter_url','option') : '#'; ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="<?php echo(get_field('instagram_url','option')) ? get_field('instagram_url','option') : '#'; ?>" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="<?php echo(get_field('pinterest_url','option')) ? get_field('pinterest_url','option') : '#'; ?>" target="_blank"><i class="fa fa-pinterest"></i></a></li>
                             </ul>
                         </div>
                         <div class="footer-nav-area">
@@ -83,9 +83,10 @@
                     coordinates[i] = new google.maps.LatLng(arr_latlang[i].lat, arr_latlang[i].lng);
                 }
                 var center_coordinates = <?php echo json_encode(get_center_latlng($directory_slug)); ?>;
-                var center= new google.maps.LatLng(center_coordinates[0].lat, center_coordinates[0].lng);
+//                var center= new google.maps.LatLng(center_coordinates[0].lat, center_coordinates[0].lng);
+                var center= new google.maps.LatLng(-31.9528536, 115.8573389);
                 var myOptions = {
-                    zoom: 8,
+                    zoom: 10,
                     center: center,
                     navigationControl: true
                 }
@@ -123,7 +124,8 @@
                     InfoWindowArray.push(InfoWindowContent);
                 }
                 var center_coordinates_large = <?php echo json_encode(get_center_latlng($directory_slug)); ?>;
-                var center_large = new google.maps.LatLng(center_coordinates_large[0].lat, center_coordinates_large[0].lng);
+//                var center_large = new google.maps.LatLng(center_coordinates_large[0].lat, center_coordinates_large[0].lng);
+                var center_large = new google.maps.LatLng(-31.9528536, 115.8573389);
                 var myOptions_large = {
                     zoom: 8,
                     center: center_large,
@@ -193,6 +195,9 @@
                 map_single = new google.maps.Map(document.getElementById("map-single"), myOptions_single);
                 var j = 0;
                 while(j < coordinates_single.length){
+                    if(typeof InfoWindowArray[j][0] == 'undefined' || typeof InfoWindowArray[j][1] == 'undefined'){
+                        break;
+                    }
                     createMarker_single(coordinates_single[j], InfoWindowArray[j][0], InfoWindowArray[j][1]);
                      
                     if(j == coordinates_single.length - 1){
@@ -251,7 +256,7 @@
                 var center_coordinates_home = <?php echo json_encode(get_center_latlng()); ?>;
                 var center = new google.maps.LatLng(center_coordinates_home[0].lat, center_coordinates_home[0].lng);
                 var myOptions = {
-                    zoom: 8,
+                    zoom: 9,
                     center: center,
                     navigationControl: true
                 }

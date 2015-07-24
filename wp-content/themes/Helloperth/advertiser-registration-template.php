@@ -133,18 +133,16 @@
     }
     get_header();
 ?>
+<?php echo mini_banner_listing(); ?>
 <section class="main-container clearfix">
     <section class="main wrapper clearfix">
         <article class="hentry" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-            <div class="page-inner-content-areaa clearfix">
+            <div class="page-inner-content-area registration-container clearfix">
                 <?php
                 while ( have_posts() ) : the_post();
                     get_template_part( 'content', 'page' );
                 endwhile;
                 ?>
-            </div>
-            <div class="page-inner-content-area registration-container clearfix">
-                
                 <header class="site-heading">
                     <h2>Advertiser Account Registration</h2>
                 </header>
@@ -185,6 +183,7 @@
                     </div>
                 </form>
             </div>
+            <!--<div class="page-inner-content-area registration-container clearfix"></div>-->
         </article>
     </section>
 </section>

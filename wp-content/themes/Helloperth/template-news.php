@@ -3,6 +3,7 @@
     get_header();
 ?>
 <!-- HTML CODE START -->
+<?php echo mini_banner_listing(); ?>
 <section class="main-container clearfix">
     <section class="main wrapper clearfix">
         <div class="news-event-container clearfix">

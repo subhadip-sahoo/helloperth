@@ -60,7 +60,8 @@
                             <div class="header-login-area">
                                 <a href="<?php echo href(PROFILE_PAGE);?>" class="head-login" data-target="#" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                     <?php //echo $userdetails->first_name; ?> 
-                                    Hi, User
+                                    <!--<span style="text-transform: none;">Hi, <?php //echo ucfirst($userdetails->first_name); ?></span>?-->
+                                    <span style="text-transform: none;">User Menu</span>
                                     <i class="icon icon-login"></i>
                                 </a>
                                 <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -70,10 +71,10 @@
                                     <ul class="dropdown-menu-ul">
                                         <li><a href="<?php echo href(PROFILE_PAGE);?>">Profile</a>
                                         </li>
-                                        <li><a href="<?php echo href(ADD_DIRECTORY_PAGE); ?>">Add directory</a></li>
+                                        <li><a href="<?php echo href(ADD_DIRECTORY_PAGE); ?>">Add Listing</a></li>
                                         <li><a href="<?php echo href(ADVANCED_SEARCH_PAGE); ?>">Search directory</a></li>
                                         <li><a href="<?php echo href(MAKE_PAYMENT_PAGE).'/'.$userdetails->user_activation_key.'/'.$user_ID; ?>">Plans</a></li>
-                                        <li><a href="<?php echo href(NEWS_N_EVENTS_PAGE); ?>">Events</a></li>
+                                        <li><a href="<?php echo href(NEWS_PAGE); ?>">News</a></li>
                                         <li><a href="<?php echo wp_logout_url(href(LOGIN_PAGE));?>">Logout</a></li>
                                     </ul>
                                 </div>

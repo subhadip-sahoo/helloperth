@@ -12,6 +12,10 @@ if(!check_valid_user($user, $key)){
     wp_safe_redirect(href(LOGIN_PAGE));
     exit();
 }
+if(!isset($_POST)){
+    wp_safe_redirect(href(MAKE_PAYMENT_PAGE).'/'.$key.'/'.$user);
+    exit();
+}
 $err_msg = '';
 $war_msg = '';
 $suc_msg = '';
@@ -39,8 +43,9 @@ if(isset($_POST['stripe-subscribe'])){
         wp_safe_redirect(href(SUBSCRIPTION_COMPLETE_PAGE));
         exit();
     }else{
-        $error = explode(':',$response[1]);
-        $err_msg = $error[1];
+//        $error = explode(':',$response[1]);
+//        $err_msg = $error[1];
+        $err_msg = $response[1];
     }
 }
 get_header();
@@ -67,7 +72,7 @@ get_header();
                                 ?>
                                 <dt><label>Package Name: </label></dt>
                                 <dd><?php echo $post->post_title; ?></dd>
-                                <dt><label>Price: </label></dt>
+                                <dt><label>Price (Inc. GST): </label></dt>
                                 <dd><?php echo get_post_meta($_POST['item'], 'package_price', TRUE).' '.strtoupper($_POST['currency']); ?></dd>
                                 <dt><label>Period: </label></dt>
                                 <dd><?php echo get_post_meta($_POST['item'], 'interval_count', true).' '.ucwords(get_post_meta($_POST['item'], 'interval', TRUE)); ?></dd>

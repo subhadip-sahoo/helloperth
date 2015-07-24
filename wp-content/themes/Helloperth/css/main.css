@@ -939,6 +939,7 @@ HEADER STYLES
   font-size: 13px;
   font-weight: 500;
   line-height: 1.15;
+  clear: both;
 }
 .weather-current-from-to small {
   font-size: 13px;
@@ -1987,7 +1988,7 @@ INNER PAGE STYLES
   margin-left: auto;
 }
 .inner-banner-container .owl-carousel .owl-controls .owl-nav .owl-prev {
-  /*background-color: #040611;*/
+  background-color: #040611;
   width: 48px;
   height: 48px;
   line-height: 48px;
@@ -2008,7 +2009,7 @@ INNER PAGE STYLES
   transition: all .3s ease;
 }
 .inner-banner-container .owl-carousel .owl-controls .owl-nav .owl-next {
-  /*background-color: #040611;*/
+  background-color: #040611;
   width: 48px;
   height: 48px;
   line-height: 48px;
@@ -2209,6 +2210,7 @@ SINGLE STYLES
   background-position: -429px -38px;
   height:30px;
   padding-top: 3px;
+  font-size:15px;
 	}
 .single-loaction {
   font-size: 14px;
@@ -2231,8 +2233,9 @@ SINGLE STYLES
 .website-icon {
   background-position: -429px -132px;
   color: #e86f19;
-  font-size: 18px;
+  font-size: 16px; /* 18px */
   font-weight: 300;
+  padding-bottom: 5px;
 }
 .website-icon a {
   color: #e86f19;
@@ -2979,7 +2982,7 @@ NEWS EVENT STYLES
 .news-event-footer {
   font-size: 15px;
   font-weight: 700;
-  color: #000;
+  color: #232323;
 }
 /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 PROFILE STYLES
@@ -3151,17 +3154,17 @@ a.bg-danger:focus {
 
 .map-download-title {
     font-size: 20px;
-    margin: 0 0 10px;
+    margin: 0 0 1px;
     color: #717171;
     font-weight: 500;
     line-height: 1.1;
 }
 .download-list li img{
-    border: 1px solid #E3E3E3;
-    height: 152px;
-    width: 220px;
+    border: 1px solid #f4f2f2;
+    height: 189px;
+    width: 244px;
     display: block;
-    margin: 18px auto;
+    margin: 0px auto;
 }  
 .product_img_part {
     border: 1px solid #D2D2D2;
@@ -3191,6 +3194,10 @@ a.bg-danger:focus {
   }
   .map-download-container .grid-row {
     margin-left: -10px;
+  }
+  .map-download-container .page-inner-content-area {
+    padding-left: 15px;
+    padding-right: 15px;
   }  
 }
 .homenews-event-container .ui-tabs .ui-tabs-nav li.ui-state-active, 
@@ -3213,6 +3220,17 @@ a.bg-danger:focus {
 }
 .homenews-event-container #tabs {
   padding: 0;
+}
+@media all and (max-width: 767px) {
+  .homenews-event-container #tabs {
+    margin-top: 0;
+  }
+  .pagination {
+    margin: 15px 0 0 !important;
+  }
+}
+.news-event-text {
+  color: #232323;
 }
 /* ==========================================================================
    Media Queries
@@ -3469,7 +3487,9 @@ a.bg-danger:focus {
   .news-events-container .flex-direction-nav .flex-next {
     background-position: -162px -263px;
   }
-  .link-view-full {
+  .link-view-full,
+  .homenews-event-container .link-view-full, 
+  .homenews-event-container .ui-widget-content a.link-view-full {
       bottom: -33px;
       left: 28px;
       top: inherit;
@@ -3915,7 +3935,7 @@ a.bg-danger:focus {
     margin-left: 130px;
   }
   .news-events-content > p {
-    display: none;
+    /*display: none;*/
   }
   .news-events-content h2 {
     font-size: 15px;
@@ -3930,7 +3950,9 @@ a.bg-danger:focus {
   .news-events-slider .flex-direction-nav > li {
     margin-top: 6px;
   }
-  .link-view-full {
+  .link-view-full,
+  .homenews-event-container .link-view-full, 
+  .homenews-event-container .ui-widget-content a.link-view-full {
     left: 20px;
     bottom: -26px;
   }
@@ -4083,7 +4105,9 @@ a.bg-danger:focus {
 }
 
 @media only screen and (max-width: 480px) {
-
+  .news-events-content > p {
+    display: none;
+  }
 
 }
 

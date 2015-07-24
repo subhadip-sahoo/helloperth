@@ -1,6 +1,12 @@
 <?php
 /* Template Name: Subscription Complete */
 session_start();
+$user = $wp_query->query['auth'];
+$key = $wp_query->query['key'];
+if(!isset($_POST)){
+    wp_safe_redirect(href(MAKE_PAYMENT_PAGE).'/'.$key.'/'.$user);
+    exit();
+}
 get_header();
 ?>
 <section class="main-container clearfix">

@@ -1,13 +1,13 @@
 /*
 Theme Name: Helloperth
 Theme URI: http://www.helloperth.com.au
-Author: Businessprodesigns Pvt. Ltd.
-Author URI: http://www.businessprodesigns.com
+Author: Next Media & Design.
+Author URI: http://www.nextmedia.net.au/
 Description: Website directory listing
 Version: 1.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: perth, website directory
+Tags: perth, website directory, accomodation, transport, dining, hotel
 Text Domain: twentyfifteen
 
 This theme, like WordPress, is licensed under the GPL.
@@ -58,7 +58,7 @@ a img.aligncenter {
 
 .wp-caption {
     background: #fff;
-    border: 1px solid #f0f0f0;
+    /*border: 1px solid #f0f0f0;*/
     max-width: 96%; /* Image does not overflow the content area */
     padding: 5px 3px 10px;
     text-align: center;
@@ -79,14 +79,21 @@ a img.aligncenter {
 .wp-caption img {
     border: 0 none;
     height: auto;
-    margin: 0;
+    margin: 10px;
     max-width: 98.5%;
     padding: 0;
     width: auto;
 }
 
 .wp-caption p.wp-caption-text {
-    font-size: 11px;
+    font-size: 8px;
+    line-height: 17px;
+    margin: 0;
+    padding: 0 4px 5px;
+}
+
+.wp-caption-text {
+    font-size: 8px;
     line-height: 17px;
     margin: 0;
     padding: 0 4px 5px;

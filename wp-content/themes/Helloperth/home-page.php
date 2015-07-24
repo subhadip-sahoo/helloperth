@@ -132,7 +132,7 @@
             </div>
         </div>
         
-        <?php echo best_of_perth(); ?>
+        <?php echo best_of_perth_home(); ?>
 
         <section class="left-right-blocks-container clearfix">
             <div class="left-blocks-container">
@@ -146,7 +146,7 @@
                         <div class="perth-tourist-map clearfix">
                             <div id="map-home" style="width: 890px; height: 224px;"></div>
                         </div>
-                        <a href="" class="btn btn-view-download hide-desktop">View Download PDF maps <i class="fa fa-arrow-circle-o-right"></i></a>
+                        <a href="<?php echo href(MAPS_PAGE); ?>" class="btn btn-view-download hide-desktop">View Download PDF maps <i class="fa fa-arrow-circle-o-right"></i></a>
                         <?php $static_page_ids = array(EXCLUSIVE_DISCOUNT_PAGE, NEWS_N_EVENTS_PAGE, TOURIST_INFO_PAGE); ?>
                         <?php $button_names = array('Discounts', 'Events', 'Tourist Info'); ?>
                         <div class="perth-tourist-map-lists clearfix">

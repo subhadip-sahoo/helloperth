@@ -4,20 +4,27 @@ require get_template_directory() . '/inc/wp_user_extends.class.php';
 function helloperth_users(){
 //    remove_role('siteuser');
 //    remove_role('advertiser');
-    add_role('siteuser', 'Site User', 
-            array(
-                'read'=>true, 
-                'edit_posts'=>false, 
-                'upload_files'=>true, 
-                'delete_posts'=>false, 
-                'remove_users'=>false, 
-                'edit_users'=>false 
-            ));
-    
+//    add_role('siteuser', 'Site User', 
+//            array(
+//                'read'=>true, 
+//                'edit_posts'=>false, 
+//                'upload_files'=>true, 
+//                'delete_posts'=>false, 
+//                'remove_users'=>false, 
+//                'edit_users'=>false 
+//            ));
+//    remove_role('subscriber');
+//    remove_role('contributor');
+//    remove_role('author');
+//    remove_role('editor');
     add_role('advertiser', 'Advertiser', 
             array(
                 'read'=>true, 
                 'edit_posts'=>true, 
+                'edit_others_posts'=>true, 
+                'edit_pages'=>true, 
+                'edit_others_pages'=>true, 
+                'edit_published_pages'=>true, 
                 'upload_files'=>true, 
                 'edit_files'=>false, 
                 'delete_posts'=>true, 

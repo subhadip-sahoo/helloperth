@@ -335,10 +335,17 @@ function hp_admin_scripts(){
 
 function get_meta_values( $key = '', $type = 'directories', $status = 'publish' ) {
     global $wpdb;
+    $return = array();
     if( empty( $key ) )
         return;
     $r = $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT pm.meta_value FROM {$wpdb->postmeta} pm LEFT JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE pm.meta_key = '%s' AND p.post_status = '%s' AND p.post_type = '%s'", $key, $status, $type ) );
-    return $r;
+    foreach ($r as $re) {
+        if($re == '' || $re == NULL){
+            continue;
+        }
+        $return[] = $re;
+    }
+    return $return;
 }
 
 function get_directory_tags(){
@@ -405,9 +412,9 @@ add_filter( 'excerpt_more', 'custom_excerpt_more' );
 
 function get_directory_latlng($term = ''){
     global $wp_query;
-    query_posts(array('post_type' => 'directories', 'post_status' => 'publish', 'taxonomy' => 'directories-cat', 'hide_empty' => 0));
+    query_posts(array('post_type' => 'directories', 'post_status' => 'publish', 'taxonomy' => 'directories-cat', 'hide_empty' => 0, 'posts_per_page' => -1));
     if(!empty($term)){
-        query_posts(array('post_type' => 'directories', 'post_status' => 'publish', 'taxonomy' => 'directories-cat', 'hide_empty' => 0, 'directories-cat' => $term));
+        query_posts(array('post_type' => 'directories', 'post_status' => 'publish', 'taxonomy' => 'directories-cat', 'hide_empty' => 0, 'posts_per_page' => -1, 'directories-cat' => $term));
     }
     $latlng = array();
     $latlng_ar = array();
@@ -421,6 +428,9 @@ function get_directory_latlng($term = ''){
             $latlng['title'] = get_the_title();
             $latlng['content'] = mb_strimwidth(get_the_content(), 0, 300, '[...]');
             if(!empty($latlng['lat']) && !empty($latlng['lng'])){
+                if($latlng['lat'] === '-25.274398' && $latlng['lng'] === '133.775136'){
+                    continue;
+                }
                 array_push($latlng_ar, $latlng);
             }
         }
@@ -436,6 +446,12 @@ function get_single_directory_latlng($post_id){
     $geo_latlng = explode(',', $geo_latlng);
     $latlng['lat'] = $geo_latlng[0];
     $latlng['lng'] = $geo_latlng[1];
+    if($latlng['lat'] === '-25.274398' && $latlng['lng'] === '133.775136'){
+        $latlng['lat'] = '-31.9528536';
+        $latlng['lng'] = '115.8573389';
+        array_push($latlng_ar, $latlng);
+        return $latlng_ar;
+    }
     $latlng['title'] = get_the_title($post_id);
     $latlng['content'] = mb_strimwidth(get_the_content($post_id), 0, 300, '[...]');
     array_push($latlng_ar, $latlng);
@@ -452,6 +468,9 @@ function get_center_latlng($term = ''){
     $average_lng = 0;
     if(is_array($latlngs) && !empty($latlngs)){
         foreach($latlngs as $ln){
+            if($ln['lat'] === '-25.274398' && $ln['lng'] === '133.775136'){
+                continue;
+            }
             $tot_lat += $ln['lat']; 
             $tot_lng += $ln['lng']; 
         }
@@ -727,4 +746,141 @@ function best_of_perth($post_type = 'directories', $taxonomy = 'directories-cat'
         $best_of_perth .= '</section>';
     endif;
     return $best_of_perth;
+}
+
+add_filter('acf/fields/relationship/query', 'tax_filter');
+
+function tax_filter($options){
+    session_start();
+    global $user_ID, $post, $wp_query;
+    if(isset($_SESSION['edit_tag_ID'])){
+        $options['tax_query'][] = array(
+            'taxonomy' => 'directories-cat',
+            'field' => 'id',
+            'terms' => array($_SESSION['edit_tag_ID']),
+        );
+        return $options;
+    }
+    return $options;
+}
+
+function mini_banner_listing(){
+    global $user_ID, $post, $wp_query;
+    
+    $banner_directory = '';
+    
+    $mini_banners = (is_tax('directories-cat', $wp_query->queried_object->term_id)) ? get_field('mini_banner_listings', 'directories-cat'.'_'.$wp_query->queried_object->term_id) : get_field('mini_banner_listings') ;
+    if(empty($mini_banners))
+        return $banner_directory;
+    $post_ids = array();
+    foreach ($mini_banners as $banners) {
+        array_push($post_ids, $banners->ID);
+    }
+    
+    $query['post_type'] = 'directories';
+    $query['taxonomy'] = 'directories-cat';
+    $query['post_status'] = 'publish';
+    $query['post__in'] = $post_ids;
+    $query['orderby'] = 'post__in';
+    $query['order'] = 'ASC';
+    
+    query_posts($query);
+    
+    if(have_posts()):
+        $banner_directory .= '<section class="banner-container clearfix">';
+        $banner_directory .= '<div class="inner-banner-container clearfix">';
+        $banner_directory .= '<div class="owl-carousel inner-banner-carousel">';
+        while(have_posts()) : the_post();
+            $banner_image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'list-cat-slider');
+            $banner_directory .= '<div class="item">';
+            $banner_directory .= '<div class="perth-slider-box">';
+            if(has_post_thumbnail()):
+            $banner_directory .= '<figure class="parth-slider-image">';
+            $banner_directory .= '<img src="'.$banner_image[0].'" alt="Directory banner image" width="332" height="222">';
+            $banner_directory .= '</figure>';
+            endif;
+            $banner_directory .= '<h3 class="parth-slider-title">';
+            $banner_directory .= '<a href="'.get_permalink(get_the_ID()).'">'.get_the_title(get_the_ID()).' <i class="icon icon-arrow"></i></a>';
+            $banner_directory .= '</h3>';
+            $banner_directory .= '</div>';
+            $banner_directory .= '</div>';
+        endwhile;   
+        wp_reset_query();
+        $banner_directory .= '</div>';
+        $banner_directory .= '</div>';
+        $banner_directory .= '</section>';
+    endif;
+    return $banner_directory;
+}
+
+function best_of_perth_home(){
+    global $user_ID, $post, $wp_query;
+    $best_of_perth = '';
+    $best_of_perth_banners = get_field('best_of_perth');
+    
+    if(empty($best_of_perth_banners))
+        return $best_of_perth;
+    
+    $post_ids = array();
+    
+    foreach ($best_of_perth_banners as $banners) {
+        array_push($post_ids, $banners->ID);
+    }
+    
+    $query['post_type'] = 'directories';
+    $query['taxonomy'] = 'directories-cat';
+    $query['post_status'] = 'publish';
+    $query['post__in'] = $post_ids;
+    $query['orderby'] = 'post__in';
+    $query['order'] = 'ASC';
+    
+    query_posts($query);
+    
+    if(have_posts()):
+        $best_of_perth .= '<section class="section-blocks best-perth-section clearfix">';
+        $best_of_perth .= '<header class="section-blocks-header">';
+        $best_of_perth .= '<h2><i class="icon icon-best-perth"></i>Best of Perth</h2>';
+        $best_of_perth .= '</header>';
+        $best_of_perth .= '<section class="section-blocks-contentarea">';
+        $best_of_perth .= '<div class="owl-carousel perth-carousel">';
+        while(have_posts()) : the_post();
+            $best_perth_image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'list-desktop');
+            
+            $best_of_perth .= '<div class="item">';
+            $best_of_perth .= '<div class="perth-slider-box">';
+            if(has_post_thumbnail()):
+            $best_of_perth .= '<figure class="parth-slider-image">';
+            $best_of_perth .= '<img src="'.$best_perth_image[0].'" width="274" height="204" alt="Business directory image">';
+            $best_of_perth .= '</figure>';
+            endif;
+            $best_of_perth .= '<h3 class="parth-slider-title">';
+            $best_of_perth .= '<a href="'.get_permalink(get_the_ID()).'">'.get_the_title(get_the_ID()).' <i class="icon icon-arrow"></i></a>';
+            $best_of_perth .= '</h3>';
+            $best_of_perth .= '</div>';
+            $best_of_perth .= '</div>';
+        endwhile;   
+        wp_reset_query();
+        $best_of_perth .= '</div>';
+        $best_of_perth .= '</section>';
+        $best_of_perth .= '</section>';
+    endif;
+    return $best_of_perth;
+}
+
+add_filter('wp_dropdown_users', 'DisplayAdvertisers');
+function DisplayAdvertisers($output){
+    global $post, $user_ID;
+    if($post->post_type == 'directories'){
+        $users = get_users(); // 'role=advertiser'
+        $output = "<select id=\"post_author_override\" name=\"post_author_override\" class=\"\">";
+//        $select = ($post->post_author == 1) ? 'selected="selected"' : '';
+//        $output .= "<option value=\"1\" ".$select.">".  get_the_author_meta('user_login', 1) ."</option>";
+        foreach($users as $user){
+            $sel = ($post->post_author == $user->ID)?"selected='selected'":'';
+            $output .= '<option value="'.$user->ID.'"'.$sel.'>'.$user->user_login.'</option>';
+        }
+        $output .= "</select>";
+        return $output;
+    }
+    return $output;
 }

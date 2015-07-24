@@ -83,13 +83,17 @@ function directories(){
                 $directories .= '<div class="perth-popup-right-container">';
                 $directories .= '<ul class="perth-popup-list-address">';
                 $directories .= '<li class="perth-popup-list"><i class="icon perth-popup-list-icon"></i> '.implode(', ', $terms).'</li>';
+                if(!empty($location)):
                 $directories .= '<li class="perth-popup-list"><i class="icon perth-popup-list-icon1"></i> '.$location.'</li>';
+                endif;
                 if(!empty($phone) || $phone):
                 $directories .= '<li class="perth-popup-list"><i class="icon perth-popup-list-icon2"></i> '.$phone.'</li>';
                 endif;
+                if(!empty($website)) :
                 $directories .= '<li class="perth-popup-list"><i class="icon perth-popup-list-icon3"></i>';
                 $directories .= '<a href="'.$website.'" target="_blank">'.$website_title_dir.'</a>';
                 $directories .= '</li>';
+                endif;
                 $directories .= '</ul>';
                 $directories .= '<p>'.  get_the_excerpt(get_the_ID()) .'</p>';
                 $directories .= '<a href="'.  get_the_permalink(get_the_ID()) .'" class="btn btn-viewmore">View More</a>';

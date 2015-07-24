@@ -22,6 +22,9 @@ function helloperth_login_auth($user, $password){
     $disabled = get_user_meta( $user->ID, 'ja_disable_user', true );
     if(implode(', ', $userdata->roles) != 'administrator'){
         if(strtotime(get_user_meta($user->ID, 'account_expiry', TRUE)) < strtotime(date('Y-m-d'))){
+            if(get_user_meta($user->ID, 'free_access', TRUE) == 1){
+                return $user;
+            }
             $errors->add('account_expired',  __('Your account has been expired. Please make your payment <a href="'.href(MAKE_PAYMENT_PAGE).'/'.$user->user_activation_key.'/'.$user->ID.'">here</a>.'));
             return $errors;
         }else if(get_user_meta( $user->ID, 'ja_disable_user', true ) == 1){
@@ -56,23 +59,22 @@ function redirect_to_after_login( $redirect_to, $request, $user ) {
     return $redirect_to;
 }
 add_filter( 'login_redirect', 'redirect_to_after_login', 10, 3 );
-/*
+
 function restrict_users_dashboard(){
     global $user_ID;
     $userdata = get_userdata($user_ID);
+    if(defined('DOING_AJAX') && DOING_AJAX){
+        return; 
+    }
     if ( isset($userdata->roles) && is_array( $userdata->roles ) ) {
-      if ( in_array( 'subscriber', $userdata->roles ) || in_array( 'siteuser', $userdata->roles ) || in_array( 'advertiser', $userdata->roles )) {
-          wp_safe_redirect(site_url());
-          exit();
-      }
-      if ( in_array( 'administrator', $userdata->roles ) ) {
-          wp_safe_redirect(admin_url());
-          exit();
-      }
+        if ( in_array( 'advertiser', $userdata->roles )) {
+            wp_safe_redirect(site_url());
+            exit();
+        }
     }
 }
-add_action( 'admin_init', 'restrict_users_dashboard', 1 );
-*/
+add_action( 'admin_init', 'restrict_users_dashboard');
+
 function helloperth_social_login_redirect(){
     $redirect_to = site_url();
     return $redirect_to;
@@ -275,12 +277,16 @@ function generate_asterisk_value($value){
 }
 
 function generate_math_captcha(){
-    session_start();
+//    session_start();
+//    if(isset($_SESSION['ver_code'])) {
+//        unset($_SESSION['ver_code']);
+//    }
     $num1 = rand(1, 6);
     $num2 = rand(5, 9);
     $answer = $num1 + $num2;
+//    $_SESSION['ver_code'] = $answer;
     $captcha = "What is $num1 + $num2?";
-    $_SESISON['ver_code'] = $answer;
+    $captcha .= "<input type='hidden' name='answar' value='".$answer."'>";
     return $captcha;
 }
 

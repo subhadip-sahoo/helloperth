@@ -90,6 +90,15 @@
                                 <span class="description"><?php _e( 'If checked, the user cannot login with this account.' , 'wp_user_extended' ); ?></span>
                             </td>
                         </tr>
+                        <tr>
+                            <th>
+                                <label for="free_user"><?php _e(' Free access for lifetime', 'wp_user_extended' ); ?></label>
+                            </th>
+                            <td>
+                                <input type="checkbox" name="free_access" id="free_access" value="1" <?php checked( 1, get_the_author_meta( 'free_access', $user->ID ) ); ?> />
+                                <span class="description"><?php _e( 'If checked, the user will have lifetime access for free.' , 'wp_user_extended' ); ?></span>
+                            </td>
+                        </tr>
                     <tbody>
 		</table>
 		<?php
@@ -113,9 +122,16 @@
                     $disabled = $_POST['ja_disable_user'];
 		}
                 
+                if ( !isset( $_POST['free_access'] ) ) {
+                    $free_access = 0;
+		} else {
+                    $free_access = $_POST['free_access'];
+		}
+                
 		update_user_meta( $user_id, 'contact_number', $_POST['contact_number'] );
 		update_user_meta( $user_id, 'profile_pic', $_POST['post_thumbnail'] );
 		update_user_meta( $user_id, 'ja_disable_user', $disabled );
+		update_user_meta( $user_id, 'free_access', $free_access );
                 
                 $cus_id = get_user_meta($user_id, 'stripe_cus_id', true);
                 $userdata = get_userdata($user_id);

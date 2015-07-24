@@ -1,16 +1,19 @@
 <?php
 /* Template Name: Search Directory */
 global $wp_query;
+$keywords = trim($_REQUEST['keywords']);
+$keywords = rtrim($keywords,',');
 $query = array(
     'post_type' => 'directories',
-    'post_status' => 'publish'
+    'post_status' => 'publish',
+    's' => $keywords
 );
 if(isset($_REQUEST['location']) && !empty($_REQUEST['location'])){
     $query['meta_query'] = array(
         array(
             'key' => 'geo_location',
             'value' => $_REQUEST['location'],
-            'compare' => '='
+            'compare' => 'LIKE'
         )
     );
 }
@@ -30,7 +33,7 @@ if(isset($_REQUEST['location']) && !empty($_REQUEST['location']) && isset($_REQU
         array(
             'key' => 'geo_location',
             'value' => $_REQUEST['location'],
-            'compare' => '='
+            'compare' => 'LIKE'
         ),
         array(
             'key' => 'geo_zip_code',
@@ -52,34 +55,50 @@ if(isset($_REQUEST['keywords']) && !empty($_REQUEST['keywords'])){
     $keywords = trim($_REQUEST['keywords']);
     $keywords = rtrim($keywords,',');
     $tags = explode(',', $keywords);
-    $query['tax_query'] = array(
-        array(
-            'taxonomy' => 'directories-tag',
-            'field' => 'slug',
-            'terms'    => $tags
-        )
-    );
+//    $query['tax_query'] = array(
+//        array(
+//            'taxonomy' => 'directories-tag',
+//            'field' => 'slug',
+//            'terms'    => $tags
+//        )
+//    );
 }
 if(isset($_REQUEST['category_name']) && !empty($_REQUEST['category_name']) && $_REQUEST['category_name'] <> 'all' && isset($_REQUEST['keywords']) && !empty($_REQUEST['keywords'])){
     $keywords = trim($_REQUEST['keywords']);
     $keywords = rtrim($keywords,',');
     $tags = explode(',', $keywords);
     $query['tax_query'] = array(
-        'relation' => 'AND',
+//        'relation' => 'AND',
         array(
             'taxonomy' => 'directories-cat',
             'field' => 'slug',
             'terms'    => array( $_REQUEST['category_name'] )
-        ),
-        array(
-            'taxonomy' => 'directories-tag',
-            'field' => 'slug',
-            'terms'    => $tags
         )
+//        array(
+//            'taxonomy' => 'directories-tag',
+//            'field' => 'slug',
+//            'terms'    => $tags
+//        )
     );
 }
+//echo '<pre>';
+//print_r($query);
 get_header();
 ?>
+<style>
+    .ui-autocomplete {
+        max-height: 300px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+    }
+      /* IE 6 doesn't support max-height
+       * we use height instead, but this forces the menu to always be this tall
+       */
+    * html .ui-autocomplete {
+        height: 300px;
+    }
+</style>
 <script type="text/javascript">
     (function($){
         $.widget( "custom.combobox", {
@@ -196,37 +215,37 @@ get_header();
         $(function(){
             var locations = <?php echo json_encode(get_meta_values('geo_location'));?>;
             var postcodes = <?php echo json_encode(get_meta_values('geo_zip_code'));?>;
-            var keywords = <?php echo json_encode(get_directory_tags());?>;
+            //var keywords = <?php echo json_encode(get_directory_tags());?>;
             $( "#location" ).autocomplete({
                 source: locations
             });
             $( "#postcode" ).autocomplete({
                 source: postcodes
             });
-            $( "#keywords" ).bind( "keydown", function( event ) {
-                if ( event.keyCode === $.ui.keyCode.TAB &&
-                $( this ).autocomplete( "instance" ).menu.active ) {
-                event.preventDefault();
-                }
-            })
-            .autocomplete({
-                minLength: 0,
-                source: function( request, response ) {
-                    response( $.ui.autocomplete.filter(
-                    keywords, extractLast( request.term ) ) );
-                },
-                focus: function() {
-                    return false;
-                },
-                select: function( event, ui ) {
-                    var terms = split( this.value );
-                    terms.pop();
-                    terms.push( ui.item.value );
-                    terms.push( "" );
-                    this.value = terms.join( ", " );
-                    return false;
-                }
-            });
+//            $( "#keywords" ).bind( "keydown", function( event ) {
+//                if ( event.keyCode === $.ui.keyCode.TAB &&
+//                $( this ).autocomplete( "instance" ).menu.active ) {
+//                event.preventDefault();
+//                }
+//            })
+//            .autocomplete({
+//                minLength: 0,
+//                source: function( request, response ) {
+//                    response( $.ui.autocomplete.filter(
+//                    keywords, extractLast( request.term ) ) );
+//                },
+//                focus: function() {
+//                    return false;
+//                },
+//                select: function( event, ui ) {
+//                    var terms = split( this.value );
+//                    terms.pop();
+//                    terms.push( ui.item.value );
+//                    terms.push( "" );
+//                    this.value = terms.join( ", " );
+//                    return false;
+//                }
+//            });
             
             $( "#category_name" ).combobox();
             

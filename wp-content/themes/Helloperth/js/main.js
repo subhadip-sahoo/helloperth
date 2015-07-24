@@ -51,7 +51,7 @@ jQuery(document).ready(function () {
 	    dots:false,
 	    responsive:{
 	    	0:{
-	            items:0,
+	            items:1,
 	            margin: 1
 	        },
 	        480:{

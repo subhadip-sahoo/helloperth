@@ -38,7 +38,8 @@
                 html += '<div class="weather-current-compare">';
                 html += '<p class="weather-day-report">'+weather.currently+'</p>';
                 html += '<p class="weather-current-from-to">';
-                html += '<span>'+weather.low+' <small>'+weather.units.temp+'</small></span> To <span>'+weather.high+' <small>'+weather.units.temp+'</small></span>';
+//                html += '<span>'+weather.low+' <small>'+weather.units.temp+'</small></span> To <span>'+weather.high+' <small>'+weather.units.temp+'</small></span>';
+                html += '<span>'+weather.low+'</span> To <span>'+weather.high+'</span>';
                 html += '</p>';
                 html += '</div>';
                 $("#weather").html(html);
