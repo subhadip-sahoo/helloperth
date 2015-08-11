@@ -77,9 +77,11 @@ get_header();
                     <header class="site-heading">
                         <h2><?php echo $post->post_title; ?></h2>
                     </header>
-                    <div class="page-content" id="accordian-content">
+                    <div class="page-content accordian-content">
                         <?php echo mb_strimwidth($content, 0, 1335, '...'); ?>
+                        <?php if(strlen($content) > 1335) : ?>
                         <p><a href="<?php echo 'javascript:void(0);'; //$directories_cat_page ?>" class="btn btn-more btn-view-download accord-more" data-postid="<?php echo $postid; ?>">More <i class="fa fa-arrow-circle-o-right"></i></a></p>
+                        <?php endif; ?>
                     </div>
                     <?php else: ?>
                     <header class="site-heading">

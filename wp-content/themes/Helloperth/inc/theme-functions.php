@@ -329,3 +329,35 @@ function message_alert($msg, $msg_code){
     endswitch;
     return $message;
 }
+
+function add_favicon() {
+    $favicon_url = get_template_directory_uri() . '/favicon.ico';
+    echo '<link rel="shortcut icon" href="' . $favicon_url . '" />';
+}
+add_action('login_head', 'add_favicon');
+add_action('admin_head', 'add_favicon');
+
+function getPostViews($postID){
+    $count_key = 'views';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count==''){
+        delete_post_meta($postID, $count_key);
+        add_post_meta($postID, $count_key, '0');
+        return "0 View";
+    }
+    return $count.' Views';
+}
+function setPostViews($postID) {
+    $count_key = 'views';
+    $count = get_post_meta($postID, $count_key, true);
+    if($count == '' || !$count){
+        $count = 1;
+        update_post_meta($postID, $count_key, $count);
+    }else{
+        $count++;
+        update_post_meta($postID, $count_key, $count);
+    }
+}
+
+// Remove issues with prefetching adding extra views
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0); 

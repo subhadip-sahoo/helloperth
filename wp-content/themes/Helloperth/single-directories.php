@@ -53,6 +53,7 @@
     if(have_posts()):
         while(have_posts()) :
             the_post();
+            setPostViews(get_the_ID());
 ?>
 <?php echo mini_banner_listing(); ?>
 <div class="main-container clearfix">
@@ -96,38 +97,42 @@
                                 </div>
                             </div>
                         </div>
-                        <?php $get_all_images = get_post_meta($post->ID, '_easy_image_gallery', TRUE); ?>
-                        <?php if(!empty($get_all_images)): ?>
+                        <?php //$get_all_images = get_post_meta($post->ID, '_easy_image_gallery', TRUE); ?>
+                        <?php //if(!empty($get_all_images)): ?>
+                        <?php if(has_post_thumbnail()): ?>
                         <div class="grid-row-5a">
                             <div class="single-grid-block">
                                 <div class="single-slider-area">
                                     <div id="single-slider" class="single-slider-flex flexslider">
                                         <ul class="slides">
                                             <?php 
-                                                $ids = explode(',', $get_all_images);
-                                                foreach ($ids as $id) :
-                                                    $image = wp_get_attachment_image_src($id, 'gallery-big');
-                                                    if(!empty($image[0])) :
+//                                                $ids = explode(',', $get_all_images);
+//                                                foreach ($ids as $id) :
+                                                    $image = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
+//                                                    if(!empty($image[0])) :
                                             ?>
                                             <li>
-                                                <img src="<?php echo $image[0]; ?>" alt=""/>
+                                                <!--<img src="<?php //echo $image[0]; ?>" alt=""/>-->
+                                                <a href="<?php echo $image[0]; ?>" rel="prettyphoto">
+                                                    <?php the_post_thumbnail('gallery-big'); ?>
+                                                </a>
                                             </li>
-                                            <?php endif; ?>
-                                            <?php endforeach; ?>
+                                            <?php //endif; ?>
+                                            <?php //endforeach; ?>
                                         </ul>
                                     </div>
-                                    <div id="single-carousel" class="single-carousel-flex flexslider">
+<!--                                    <div id="single-carousel" class="single-carousel-flex flexslider">
                                         <ul class="slides">
                                             <?php 
-                                                foreach ($ids as $id) :
-                                                    $image = wp_get_attachment_image_src($id, 'gallery-big');
-                                                    if(!empty($image[0])) :
+//                                                foreach ($ids as $id) :
+//                                                    $image = wp_get_attachment_image_src($id, 'gallery-big');
+//                                                    if(!empty($image[0])) :
                                             ?>
                                             <li>
-                                                <img src="<?php echo $image[0]; ?>" />
+                                                <img src="<?php //echo $image[0]; ?>" />
                                             </li>
-                                            <?php endif; ?>
-                                            <?php endforeach; ?>
+                                            <?php //endif; ?>
+                                            <?php //endforeach; ?>
                                         </ul>
                                     </div>
                                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg">    
@@ -137,7 +142,7 @@
                                                                               0.3333 0.3333 0.3333 0 0
                                                                               0      0      0      1 0"/>
                                         </filter>
-                                    </svg>
+                                    </svg>-->
                                 </div>
                             </div>
                         </div>

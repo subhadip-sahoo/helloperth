@@ -25,11 +25,15 @@
                
                 <div class="news-event-content">
                     <h4 class="news-event-title"><a href="javascript:void(0);"><span class="news-event-date"><?php echo date('d/m/Y', strtotime($evt['start_date'])); ?>  -  <?php echo date('d/m/Y', strtotime($evt['end_date'])); ?></span> <span class="news-event-title-t"><?php echo $event->post_title; ?></span></a></h4>
-                    <div class="news-event-text">
-                        <p><?php echo $event->post_content; ?></p>
+                    <div class="news-event-text accordian-content-news">
+                        <p><?php echo mb_strimwidth($event->post_content, 0, 895, '...'); ?>
+                        <?php if(strlen($event->post_content) > 895) : ?>
+                        <a href="<?php echo 'javascript:void(0);';?>" class="btn-more btn-view-download accord-more" data-postid="<?php echo $evt['post_id']; ?>"><i class="fa fa-arrow-circle-o-down"></i></a>
+                        <?php endif; ?>
+                        </p>
                     </div>
                     <div class="news-event-footer">
-                        <?php echo get_field('location', $evt['post_id'], true); ?> <a href="<?php echo get_field('website_url', $evt['post_id'], true); ?>" target="_blank"><?php echo get_field('website', $evt['post_id'], true); ?></a>
+                        <a href="<?php echo get_field('website_url', $evt['post_id'], true); ?>" target="_blank"><?php echo get_field('website', $evt['post_id'], true); ?></a>&nbsp;&nbsp;<?php echo get_field('location', $evt['post_id'], true); ?>
                     </div>
                 </div>
             </article>

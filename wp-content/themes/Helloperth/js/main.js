@@ -19,7 +19,8 @@ jQuery(document).ready(function () {
 	
 	jQuery(".container").fitVids();
 
-
+  jQuery('.contact-form-grp').find('.site-heading').addClass('contact-title');
+  
 	jQuery('.perth-carousel').owlCarousel({
 	    loop:true,
 	    margin:10,
@@ -133,17 +134,29 @@ jQuery(document).ready(function () {
     
     $(document).delegate('.accord-more','click', function(){
         var postid = $(this).data('postid');
+        var $this = $(this);
         $.ajax({
             url: userSettings.url + 'wp-admin/admin-ajax.php',
             type: 'POST',
             data: {action: 'get_page_content', postid: postid},
             success: function(response){
-                $('#accordian-content').empty().append(response);
+                $this.closest('p').parent('.accordian-content').html(response);
             }
         });
     });
     
-    
+    $(document).delegate('.accord-more','click', function(){
+        var postid = $(this).data('postid');
+        var $this = $(this);
+        $.ajax({
+            url: userSettings.url + 'wp-admin/admin-ajax.php',
+            type: 'POST',
+            data: {action: 'get_page_content', postid: postid},
+            success: function(response){
+                $this.closest('.accordian-content-news').html(response);
+            }
+        });
+    });
 });
 (function ($) {
   'use strict';
@@ -412,3 +425,9 @@ $(window).load(function() {
     sync: "#single-carousel"
   });
 });
+
+(function($){
+    jQuery(window).load(function(){
+        jQuery(".mCustomScrollbar-view-directory").mCustomScrollbar();
+    });
+})(jQuery);

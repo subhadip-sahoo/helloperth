@@ -795,9 +795,11 @@ function mini_banner_listing(){
             $banner_directory .= '<div class="item">';
             $banner_directory .= '<div class="perth-slider-box">';
             if(has_post_thumbnail()):
+            $banner_directory .= '<a href="'.get_permalink(get_the_ID()).'">';
             $banner_directory .= '<figure class="parth-slider-image">';
             $banner_directory .= '<img src="'.$banner_image[0].'" alt="Directory banner image" width="332" height="222">';
             $banner_directory .= '</figure>';
+            $banner_directory .= '</a>';
             endif;
             $banner_directory .= '<h3 class="parth-slider-title">';
             $banner_directory .= '<a href="'.get_permalink(get_the_ID()).'">'.get_the_title(get_the_ID()).' <i class="icon icon-arrow"></i></a>';
@@ -849,9 +851,11 @@ function best_of_perth_home(){
             $best_of_perth .= '<div class="item">';
             $best_of_perth .= '<div class="perth-slider-box">';
             if(has_post_thumbnail()):
+            $best_of_perth .= '<a href="'.get_permalink(get_the_ID()).'">';
             $best_of_perth .= '<figure class="parth-slider-image">';
             $best_of_perth .= '<img src="'.$best_perth_image[0].'" width="274" height="204" alt="Business directory image">';
             $best_of_perth .= '</figure>';
+            $best_of_perth .= '</a>';
             endif;
             $best_of_perth .= '<h3 class="parth-slider-title">';
             $best_of_perth .= '<a href="'.get_permalink(get_the_ID()).'">'.get_the_title(get_the_ID()).' <i class="icon icon-arrow"></i></a>';

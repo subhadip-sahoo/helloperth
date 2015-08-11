@@ -143,7 +143,7 @@
                     get_template_part( 'content', 'page' );
                 endwhile;
                 ?>
-                <header class="site-heading">
+                <header class="site-heading site-heading-samll">
                     <h2>Advertiser Account Registration</h2>
                 </header>
                 <?php if(!empty($err_msg)): echo '<p style="color: red;">'.$err_msg.'</p>'; endif;?>

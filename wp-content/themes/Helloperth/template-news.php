@@ -22,8 +22,13 @@
                 <?php endif; ?>
                 <div class="news-event-content">
                     <h4 class="news-event-title"><a href="javascript:void(0);"><span class="news-event-date"></span> <span class="news-event-title-t"><?php the_title(); ?></span></a></h4>
-                    <div class="news-event-text">
-                        <p><?php the_content(); ?></p>
+                    <div class="news-event-text accordian-content-news">
+                        <p>
+                            <?php echo mb_strimwidth(get_the_content(get_the_ID()), 0, 895, '...'); ?>
+                            <?php if(strlen(get_the_content(get_the_ID())) > 895) : ?>
+                            <a href="<?php echo 'javascript:void(0);';?>" class="btn-more btn-view-download accord-more" data-postid="<?php echo get_the_ID(); ?>"><i class="fa fa-arrow-circle-o-down"></i></a>
+                            <?php endif; ?>
+                        </p>
                     </div>
                 </div>
             </article>

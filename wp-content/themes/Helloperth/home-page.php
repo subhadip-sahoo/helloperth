@@ -29,7 +29,7 @@
                 <form action="<?php echo home_url(); ?>" name="search" method="GET">
                     <div class="banner-search-form-area">
                         <input type="text" class="form-control" name="s">
-                        <input type="hidden" class="form-control" name="post_type" value="directories">   
+    <!--                        <input type="hidden" class="form-control" name="post_type" value="directories"> -->
                         <input type="submit" class="btn btn-banner-search" value="explore perth">
                     </div>
                     <p class="advance-search-text"><a href="<?php echo href(ADVANCED_SEARCH_PAGE); ?>">Advanced Search</a></p>
@@ -78,7 +78,7 @@
                                         <div class="news-events-content">
                                             <h2><?php echo date('d/m/Y', strtotime($evt['start_date'])); ?>  -  <?php echo date('d/m/Y', strtotime($evt['end_date'])); ?>&nbsp;<?php echo $event->post_title; ?></h2>
                                             <p><?php echo mb_strimwidth($event->post_content, 0, 200, '...'); ?></p>
-                                            <p class="news-event-add"><?php echo get_field('location', $evt['post_id'], true); ?> <?php echo get_field('website', $evt['post_id'], true); ?></p>
+                                            <p class="news-event-add"><?php echo get_field('website', $evt['post_id'], true); ?> <?php echo get_field('location', $evt['post_id'], true); ?></p>
                                         </div></a>   
                                     </li>
                                 <?php endforeach; ?>

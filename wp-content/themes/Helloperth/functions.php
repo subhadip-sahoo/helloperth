@@ -1,35 +1,4 @@
 <?php
-/**
- * Twenty Fifteen functions and definitions
- *
- * Set up the theme and provides some helper functions, which are used in the
- * theme as custom template tags. Others are attached to action and filter
- * hooks in WordPress to change core functionality.
- *
- * When using a child theme you can override certain functions (those wrapped
- * in a function_exists() call) by defining them first in your child theme's
- * functions.php file. The child theme's functions.php file is included before
- * the parent theme's file, so the child theme functions would be used.
- *
- * @link https://codex.wordpress.org/Theme_Development
- * @link https://codex.wordpress.org/Child_Themes
- *
- * Functions that are not pluggable (not wrapped in function_exists()) are
- * instead attached to a filter or action hook.
- *
- * For more information on hooks, actions, and filters,
- * {@link https://codex.wordpress.org/Plugin_API}
- *
- * @package WordPress
- * @subpackage Twenty_Fifteen
- * @since Twenty Fifteen 1.0
- */
-
-/**
- * Set the content width based on the theme's design and stylesheet.
- *
- * @since Twenty Fifteen 1.0
- */
 if ( ! isset( $content_width ) ) {
 	$content_width = 660;
 }
@@ -432,3 +401,43 @@ require get_template_directory() . '/inc/ajax-callback.php';
  */
 
 require get_template_directory() . '/inc/theme-functions.php';
+
+
+class WPSE_Modify_Query{
+    private $search = '';
+
+    public function activate(){
+        add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
+    }
+
+    function pre_get_posts( WP_Query $q ){
+        if( filter_var( $q->get( 'wpse_search_or_tax_query' ), FILTER_VALIDATE_BOOLEAN ) && $q->get( 'tax_query' ) && $q->get( 's' )){                                                           
+            add_filter( 'posts_clauses', array( $this, 'posts_clauses' ), 10, 2);
+            add_filter( 'posts_search', array( $this, 'posts_search' ), 10, 2);
+        }
+    }
+
+    function posts_clauses( $clauses, WP_Query $q ){
+        global $wpdb;
+        remove_filter( current_filter(), array( $this, __FUNCTION__ ) );
+        $tq = new WP_Tax_Query( $q->query_vars['tax_query'] );
+        $tc = $tq->get_sql($wpdb->term_taxonomy, 'term_taxonomy_id');
+        $clauses['where'] = str_ireplace( $this->search, ' ', $clauses['where'] );
+        $clauses['where'] = str_ireplace( $tc['where'], ' ', $clauses['where'] );
+        $clauses['where'] .= sprintf( " AND (( 1=1 %s ) OR ( 1=1 %s )) ", $tc['where'],$this->search);
+        return $clauses;
+    }
+
+    function posts_search($search, WP_Query $q){
+        remove_filter( current_filter(), array( $this, __FUNCTION__ ) );
+        $this->search = $search;
+        return $search;
+    }
+}
+
+add_action( 'init', function(){   
+    if( ! is_admin() && class_exists( 'WPSE_Modify_Query' ) ){
+        $o = new WPSE_Modify_Query;
+        $o->activate();
+    }
+});

@@ -16,6 +16,8 @@ function directories(){
     global $wp_query, $authordata;
     $directories = '';
     if(isset($_POST) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+        $o = new WPSE_Modify_Query;
+        $o->activate();
         $item_per_page = 20;
 	if(isset($_POST['page'])){
             $page_number = filter_var($_POST['page'], FILTER_SANITIZE_NUMBER_INT, FILTER_FLAG_STRIP_HIGH);
@@ -27,9 +29,8 @@ function directories(){
         $args = $_POST['args'];
         $args['posts_per_page'] = $item_per_page;
         $args['offset'] = $offset;
-	
+
         query_posts($args);
-        
 	$get_total_rows = $wp_query->found_posts;
 	$total_pages = ceil($get_total_rows/$item_per_page);
         

@@ -112,27 +112,55 @@ get_header();
                 ?>
                 <div class="registration-devider clearfix">
                     <div class="registration-block">
-                        <div class="form-group-lists-div">
+<!--                        <div class="form-group-lists-div">
                             <label for="upload_image">Profile Picture</label>
                             <div class="upload-image-block" id="figure_parent">
                                 <figure class="upload-image-img" id="dir_feature_image">
-                                    <?php if($isset_profile_pic == 1): ?>
-                                    <img src="<?php echo $profile_pic[0]; ?>" width="200" height="150" alt="Profile picture"/>
-                                    <?php endif; ?>
-                                    <?php if($isset_profile_pic == 1) :?>
+                                    <?php //if($isset_profile_pic == 1): ?>
+                                    <img src="<?php //echo $profile_pic[0]; ?>" width="200" height="150" alt="Profile picture"/>
+                                    <?php //endif; ?>
+                                    <?php //if($isset_profile_pic == 1) :?>
                                     <a href="javascript:void(0);" title="Remove image" id="remove_dir_feature_image" class="btn btn-remove-image"><i class="fa fa-times-circle"></i></a>
-                                    <?php endif; ?>
+                                    <?php //endif; ?>
                                 </figure>
                                 <div class="upload-btn-group" id="control-div">
-                                    <?php if($isset_profile_pic == 0) :?>
+                                    <?php //if($isset_profile_pic == 0) :?>
                                     <button id="upload_image_button" class="button btn upload-btn" type="button" value="Upload Image" ><i class="fa fa-plus-circle"></i><span>Upload Image</span></button>
-                                    <?php endif; ?>                                     
+                                    <?php //endif; ?>                                     
                                 </div>
                             </div>
+                        </div>-->
+                        <div class="view-profile-container clearfix">
+                            <?php
+                                $author_id = $user_ID; 
+                                $author_posts = get_posts( array(
+                                    'author' => $author_id,
+                                    'post_type' => 'directories',
+                                    'post_status' => 'publish',
+                                    'posts_per_page' => -1,
+                                ) );
+
+                                $counter = 0;
+
+                                echo '<h3 class="views-directory-title">Views by directories:</h3><div class="mCustomScrollbar mCustomScrollbar-view-directory"><ul class="views-directoryUl">'; 
+                                foreach ( $author_posts as $post ){
+                                    $views = absint( get_post_meta( $post->ID, 'views', true ) );
+                                    $counter += $views;
+                                    echo "<li class='views-directoryLi'>{$post->post_title} <span>({$views})</span></li>";
+                                }
+                                echo "</ul></div><hr /><p>Total Number of views: <strong>{$counter}</strong></p>";
+                                wp_reset_query();
+                            ?>
+                        </div>
+                        
+                        <div class="user-menu-guide">
+                            <a href="<?php echo href(USER_GUIDE); ?>" class="btn">User Guide</a>
+                            <a href="<?php echo href(ADD_DIRECTORY_PAGE); ?>" class="btn">Add Listing <i class="fa fa-plus-circle"></i></a>
+                            <a href="<?php echo href(MAKE_PAYMENT_PAGE).'/'.$userdata->user_activation_key.'/'.$user_ID; ?>" class="btn">Subscription Plans</a>
                         </div>
                         <div class="txn-log-container">
                             <div class="txn-log">
-                                <h2>Last 10 transactions</h2>
+                                <h4>Last 10 transactions</h4>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>

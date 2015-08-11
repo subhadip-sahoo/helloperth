@@ -611,3 +611,6 @@ button.close {
     opacity: 0.2;
 text-shadow: 0 1px 0 #fff;
 }
+.user-menu-guide {
+    margin-bottom: 10px;
+}

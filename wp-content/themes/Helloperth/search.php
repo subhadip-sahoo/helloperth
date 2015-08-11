@@ -1,15 +1,28 @@
 <?php
 global $wp_query;
-$query = $wp_query->query;
+$query['wpse_search_or_tax_query'] =  TRUE;
+$query['s'] =  $_REQUEST['s'];
 $query['post_type'] =  'directories';
-$query['taxonomy'] =  'directories-cat';
 $query['post_status'] =  'publish';
+$query['tax_query'] =  array(
+    'relation' => 'OR',
+    array(
+        'taxonomy' => 'directories-cat',
+        'field'    => 'slug',
+        'terms'    => array( $_REQUEST['s'] ),
+    ),
+    array(
+        'taxonomy' => 'directories-tag',
+        'field'    => 'slug',
+        'terms'    => array( $_REQUEST['s'] ),
+    )
+);
 get_header();
 ?>
 <script type="text/javascript">
     (function($){
         $(function(){
-            $('#directorirs' ).load('<?php echo admin_url('admin-ajax.php'); ?>', {action: 'directories', args:<?php echo json_encode($query); ?>}, function(res){
+            $('#directorirs').load('<?php echo admin_url('admin-ajax.php'); ?>', {action: 'directories', args:<?php echo json_encode($query); ?>}, function(res){
                 if(res == '' || typeof res === 'undefined'){
                     $(this).html('<p>No directories found!</p>');
                 }
@@ -20,7 +33,6 @@ get_header();
                 $('.loading-div').show();
                 var page = $(this).attr('data-page');
                 $('#directorirs').load('<?php echo admin_url('admin-ajax.php'); ?>',{action: 'directories', page: page, args:<?php echo json_encode($query); ?>}, function(res){
-                    
                     $('.loading-div').hide();
                 });
             });
@@ -36,9 +48,10 @@ get_header();
                         <h2><?php printf( __( 'Search Results for: %s', 'twentyfifteen' ), get_search_query() ); ?></h2>
                     </header>
                 </div>
+                <a href="javascript:window.history.back();" title="back" class="btn btn-primary">Back</a>
+                <a href="<?php echo href(ADVANCED_SEARCH_PAGE); ?>" title="Advanced Search" class="btn btn-primary">Advanced Search</a>
             </div>
         </article>
-        <div class="loading-div"><img src="<?php echo get_template_directory_uri(); ?>/images/ajax-loader.gif" ></div>
         <section class="inner-blocks-cts-area clearfix advance-search-lists" id="directorirs"></section>
     </section>
 </section>

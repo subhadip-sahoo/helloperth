@@ -95,6 +95,7 @@ define('SUBSCRIPTION_COMPLETE_PAGE', 211); // 260
 define('NEWS_PAGE', 260);
 define('GUIDE_PICKUP_LOCATIONS_PAGE', 373);
 define('MAPS_PAGE', 282);
+define('USER_GUIDE', 865);
 
 /* HOME PAGE */
 

@@ -56,7 +56,6 @@ textarea {
     padding: 0.2em 0;
 }
 /* ===== Initializr Styles ==================================================
-   Author: Sandip Pal 
    ========================================================================== */
 body {
     font: 16px/26px Helvetica, Helvetica Neue, Arial;
@@ -897,7 +896,8 @@ HEADER STYLES
   display: inline-block;
   vertical-align: middle;
   margin-left: 6px;
-  width:138px;
+  /*width:138px;*/
+  width: auto;
 }
 .icon-weather {
   display: inline-block;
@@ -948,7 +948,7 @@ HEADER STYLES
  /* margin-top: 12px;*/
   margin-top: 9px ;
   float: right;
-  margin-right: 117px;
+  margin-right: 115px;
 }
 .header-weather-time-area p{ margin:0px 6px 0 0 !important;}
 /*.current-time-area .aligncenter{ display:none;}*/
@@ -2736,11 +2736,11 @@ REGISTRATION STYLES
 	line-height: 25px;
 }
 .registration-block {
-	width: 47%;
+	width: 50%;
 	padding: 0 18px;
 	float: left;
-	margin:0 15px 0 0;
-	background:#f8f8f8;
+	margin:0;
+	/*background:#f8f8f8;*/
 }
 .registration-devider {
 	margin-left: -18px;
@@ -2761,7 +2761,7 @@ REGISTRATION STYLES
 }
 .registration-btn-group {
 	text-align: right;
-	margin:25px 33px 0 0
+	/*margin:25px 33px 0 0;*/
 }
 /*======================================
 PAYMENT STYLES
@@ -2804,6 +2804,26 @@ PAYMENT STYLES
   line-height: 1.2;
   margin-bottom: 15px;
 }
+.payment-table-block h3 > em {
+	display: block;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 1;
+    color: #EC7623;
+}
+.payment-table-block h3 > span {
+	display: block;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.4;
+    color: #696969;
+}
+.payment-table-block:hover h3 > span,
+.payment-table-block:hover h3 > em {
+	color: #fff;
+}
 .payment-table-price-area {
   min-width: 125px;
   min-height: 125px;
@@ -2821,6 +2841,22 @@ PAYMENT STYLES
   font-family: 'Roboto', sans-serif;
   color: #ec7623;
   margin-bottom: 12px;
+}
+.payment-table-price-area {
+	margin-top: 80px;
+}
+.payment-content-area .grid-row-4 + .grid-row-4 + .grid-row-4 + .grid-row-4 .payment-table-price-area {
+	margin-top: 0;
+}
+@media all and (max-width: 900px) {
+	.payment-table-price-area {
+		margin-top: 54px;
+	}
+}
+@media all and (max-width: 767px) {
+	.payment-table-price-area {
+		margin-top: 0px;
+	}
 }
 .payment-table-block:hover .payment-table-price-area {
   border-color: #CD5500;
@@ -2983,6 +3019,23 @@ NEWS EVENT STYLES
   font-size: 15px;
   font-weight: 700;
   color: #232323;
+}
+@media all and (max-width: 767px) {
+	.news-event-figure {
+		float: none;
+		max-width: inherit;
+		margin-bottom: 15px;
+	}
+	.news-event-content {
+		margin-left: 0;
+	}
+	.news-event-container {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+}
+.perth-popup-container > div {
+	width: 100% !important; 
 }
 /*%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 PROFILE STYLES
@@ -3231,6 +3284,77 @@ a.bg-danger:focus {
 }
 .news-event-text {
   color: #232323;
+}
+/*%%%%%%%%%%%%%%%%%%%%%%%
+CONTACT STYLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+.contact-form-grp {
+	max-width: 50%;
+}
+.contact-form-grp dt {
+	display: block;
+}
+.contact-form-grp dd {
+	display: block;
+	margin-left: 0;
+	padding-left: 0;
+	margin-bottom: 15px;
+}
+.contact-form-grp dt > label {
+	font-size: 18px;
+    color: #232323;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 8px;
+}
+.login-form-extra-left {
+	text-align: left;
+}
+.site-heading-samll {
+	margin-top: 20px;
+}
+.registration-container .site-heading-samll > h2 {
+	font-size: 27px;
+	color: #ec7623;
+}
+@media all and (max-width: 767px) {
+	.site-heading-samll {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.contact-form-grp {
+		max-width: 100%;
+	}
+}
+.view-profile-container {
+  margin-bottom: 15px;
+}
+.views-directory-title {
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 15px;
+  color: #EC7623;
+  font-size: 20px;
+}
+.views-directoryUl {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 15px;
+}
+.views-directoryLi {
+  font-size: 13px;
+  padding: 2px 0; 
+}
+.views-directoryLi > span {
+  color: #EC7623;
+  font-weight: 700;
+}
+.mCustomScrollbar-view-directory {
+  height: 300px;
+}
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
+.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
+      background-color: #EC7623; 
 }
 /* ==========================================================================
    Media Queries
@@ -4101,6 +4225,10 @@ a.bg-danger:focus {
   .registration-container {
   	margin-left: 10px;
   	margin-right: 10px;
+  }
+  .perth-popup-container {
+  	padding-left: 10px;
+  	padding-right: 10px;
   }
 }
 

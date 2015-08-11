@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/jQueryUI/css/jquery-ui.css">
         <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/css/psm.css">
         <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/css/validationEngine.jquery.css">
+        <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/css/jquery.mCustomScrollbar.css" />
         <link rel="stylesheet" href="<?php echo get_template_directory_uri();?>/css/main.css">
 
         <script src="<?php echo get_template_directory_uri();?>/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
@@ -66,15 +67,15 @@
                                 </a>
                                 <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                     <div class="profile-dropdown-img">
-                                        <a href="<?php echo href(PROFILE_PAGE);?>"><?php echo (!empty($userdetails->profile_pic)) ? get_avatar($user_ID, 92, $avatar[0], $userdetails->display_name) : get_avatar($user_ID, 92, get_option('avatar_default'), $userdetails->display_name); ?></a>
+                                        <a href="<?php echo href(PROFILE_PAGE);?>"><?php echo (!empty($userdetails->profile_pic)) ? '<img src="'.$avatar[0].'" width="92" height="92">' : get_avatar($user_ID, 92, get_option('avatar_default'), $userdetails->display_name); ?></a>
                                     </div>
                                     <ul class="dropdown-menu-ul">
-                                        <li><a href="<?php echo href(PROFILE_PAGE);?>">Profile</a>
-                                        </li>
+                                        <li><a href="<?php echo href(PROFILE_PAGE);?>">Profile</a></li>
                                         <li><a href="<?php echo href(ADD_DIRECTORY_PAGE); ?>">Add Listing</a></li>
                                         <li><a href="<?php echo href(ADVANCED_SEARCH_PAGE); ?>">Search directory</a></li>
                                         <li><a href="<?php echo href(MAKE_PAYMENT_PAGE).'/'.$userdetails->user_activation_key.'/'.$user_ID; ?>">Plans</a></li>
                                         <li><a href="<?php echo href(NEWS_PAGE); ?>">News</a></li>
+                                        <li><a href="<?php echo href(USER_GUIDE); ?>">User Guide</a></li>
                                         <li><a href="<?php echo wp_logout_url(href(LOGIN_PAGE));?>">Logout</a></li>
                                     </ul>
                                 </div>

@@ -72,6 +72,7 @@
         <script src="<?php echo get_template_directory_uri();?>/js/stripe.js"></script>
         <script src="<?php echo get_template_directory_uri();?>/js/jquery.validationEngine-en.js"></script>
         <script src="<?php echo get_template_directory_uri();?>/js/jquery.validationEngine.js"></script>
+        <script src="<?php echo get_template_directory_uri();?>/js/vendor/jquery.mCustomScrollbar.concat.min.js"></script>
         <script src="<?php echo get_template_directory_uri();?>/js/main.js"></script>
         <script type="text/javascript">
             var markers = [];
