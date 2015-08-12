@@ -175,7 +175,7 @@
                                             <div class="perth-tourist-lists-text">
                                                 <p><?php echo mb_strimwidth($page->post_content, 0, 100, '...'); ?></p>
                                             </div>
-                                            <p class="perth-tourist-lists-btn"><a href="<?php echo href($id); ?>" class="btn btn-perth-tourist"><?php echo $button_names[$i]; ?></a></p>
+                                            <p class="perth-tourist-lists-btn"><a href="<?php echo ($i == 2)? site_url().'/general-info': href($id); ?>" class="btn btn-perth-tourist"><?php echo $button_names[$i]; ?></a></p>
                                         </div>
                                     </div>
                                 </li>

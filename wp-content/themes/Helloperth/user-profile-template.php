@@ -46,7 +46,7 @@ if(isset($_POST['update_details'])){
                 'first_name' => esc_sql($_POST['first_name']),
                 'last_name' => esc_sql($_POST['last_name']),
                 'display_name' => esc_sql($_POST['first_name']).' '.esc_sql($_POST['last_name']),
-                'description' => esc_sql($_POST['description']),
+//                'description' => esc_sql($_POST['description']),
             );
 
             $UID = wp_update_user( $data );
@@ -141,14 +141,17 @@ get_header();
                                 ) );
 
                                 $counter = 0;
-
-                                echo '<h3 class="views-directory-title">Views by directories:</h3><div class="mCustomScrollbar mCustomScrollbar-view-directory"><ul class="views-directoryUl">'; 
-                                foreach ( $author_posts as $post ){
-                                    $views = absint( get_post_meta( $post->ID, 'views', true ) );
-                                    $counter += $views;
-                                    echo "<li class='views-directoryLi'>{$post->post_title} <span>({$views})</span></li>";
+                                if(!empty($author_posts)){
+                                    echo '<h3 class="views-directory-title">Views by directories:</h3><div class="mCustomScrollbar mCustomScrollbar-view-directory"><ul class="views-directoryUl">'; 
+                                    foreach ( $author_posts as $post ){
+                                        $views = absint( get_post_meta( $post->ID, 'views', true ) );
+                                        $counter += $views;
+                                        echo "<li class='views-directoryLi'>{$post->post_title} <span>({$views})</span></li>";
+                                    }
+                                    echo "</ul></div><hr /><p>Total Number of views: <strong>{$counter}</strong></p>";
+                                }else{
+                                    echo '<h3 class="views-directory-title">Views by directories:</h3><div class="mCustomScrollbar mCustomScrollbar-view-directory"><ul class="views-directoryUl"><li>No directories found!<li></ul></div>'; 
                                 }
-                                echo "</ul></div><hr /><p>Total Number of views: <strong>{$counter}</strong></p>";
                                 wp_reset_query();
                             ?>
                         </div>
@@ -224,10 +227,10 @@ get_header();
                                     <label>Contact Number: </label>
                                     <input type="text" name="contact_number" id="contact_number" value="<?php echo $userdata->contact_number; ?>" class="form-control"/>
                                 </div>
-                                <div class="form-group-lists-div">
+<!--                                <div class="form-group-lists-div">
                                     <label>Biographical Info: </label>
-                                    <?php wp_editor(wp_richedit_pre($userdata->description), 'description', array('media_buttons' => false, 'wpautop' => false, 'quicktags' => false, 'textarea_rows' => 5));?>
-                                </div>
+                                    <?php //wp_editor(wp_richedit_pre($userdata->description), 'description', array('media_buttons' => false, 'wpautop' => false, 'quicktags' => false, 'textarea_rows' => 5));?>
+                                </div>-->
                                 <div class="form-group-lists-div">
                                     <label>New Password: </label>
                                     <input type="password" name="user_pass" id="user_pass" value="" class="form-control"/>

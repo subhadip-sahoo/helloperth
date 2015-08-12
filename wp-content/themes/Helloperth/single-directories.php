@@ -83,10 +83,16 @@
                                         <div class="grid-row-2">
                                             <h4>Contact Info</h4>
                                             <p class="tel-number-icon"><?php echo get_post_meta($post->ID, 'phone', TRUE); ?></p>
-                                            <?php $contact_email = (get_post_meta($post->ID, 'email_address', TRUE) <> '') ? get_post_meta($post->ID, 'email_address', TRUE) : $userdata->user_email; ?>
-                                            <p class="website-icon">
-                                                <a href="mailto:<?php echo $contact_email; ?>">
-                                                    <?php echo $contact_email; ?>
+                                            <?php //$contact_email = (get_post_meta($post->ID, 'email_address', TRUE) <> '') ? get_post_meta($post->ID, 'email_address', TRUE) : $userdata->user_email; ?>
+<!--                                            <p class="website-icon">
+                                                <a href="mailto:<?php //echo $contact_email; ?>">
+                                                    <?php //echo $contact_email; ?>
+                                                </a>
+                                            </p>-->
+                                            <?php $website = (get_post_meta($post->ID, 'website', TRUE) <> '') ? get_post_meta($post->ID, 'website', TRUE) : ''; ?>
+                                            <p class="icon perth-popup-list-icon3">
+                                                <a href="<?php echo $website; ?>" target="_blank">
+                                                    <?php echo (get_post_meta($post->ID, 'website_title_dir', TRUE) <> '') ? get_post_meta($post->ID, 'website_title_dir', TRUE) : get_post_meta($post->ID, 'website', TRUE); ?>
                                                 </a>
                                             </p>
                                         </div>

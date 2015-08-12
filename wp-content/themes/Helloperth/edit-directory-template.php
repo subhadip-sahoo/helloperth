@@ -180,7 +180,7 @@ get_header();
                 <form name="add_directory" action="" method="POST" class="form_content" enctype="multipart/form-data">
                     <div class="form-group-lists">
                         <div class="form-group-lists-div">
-                            <label>Title: </label>
+                            <label>Business Name: </label>
                             <input type="text" name="post_title" id="post_title" value="<?php echo (isset($_POST['post_title'])) ? $_POST['post_title'] : $post->post_title; ?>" class="form-control validate[required]"/>
                         </div>
                         <div class="form-group-lists-div">

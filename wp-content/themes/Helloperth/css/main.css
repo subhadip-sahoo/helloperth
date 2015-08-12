@@ -2218,7 +2218,8 @@ SINGLE STYLES
   margin-bottom: 35px;
 }
 .tel-number-icon,
-.website-icon {
+.website-icon,
+.perth-popup-list-icon3 {
   margin-bottom: 5px;
   padding-left: 40px;
   background-image: url(../images/sprite.png);
@@ -2232,6 +2233,13 @@ SINGLE STYLES
 }
 .website-icon {
   background-position: -429px -132px;
+  color: #e86f19;
+  font-size: 16px; /* 18px */
+  font-weight: 300;
+  padding-bottom: 5px;
+}
+.single-loaction .perth-popup-list-icon3 {
+  /*background-position: -429px -132px;*/
   color: #e86f19;
   font-size: 16px; /* 18px */
   font-weight: 300;
@@ -3351,11 +3359,28 @@ CONTACT STYLES
 }
 .mCustomScrollbar-view-directory {
   height: 300px;
+  padding: 10px 0 10px 10px;
+  border: solid 1px #E8CBB7;
+  background-color: #FBF2EC;
 }
 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
 .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar {
       background-color: #EC7623; 
 }
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+    background-color: #EC7623; background-color: rgba(236, 118, 35.75);
+    filter: "alpha(opacity=75)"; -ms-filter: "alpha(opacity=75)"; 
+  }
+
+  .mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar{
+    background-color: #EC7623; background-color: rgba(236, 118, 35.85);
+    filter: "alpha(opacity=85)"; -ms-filter: "alpha(opacity=85)"; 
+  }
+  .mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+  .mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar{
+    background-color: #EC7623; background-color: rgba(0, 0, 0, 0.9);
+    filter: "alpha(opacity=90)"; -ms-filter: "alpha(opacity=90)"; 
+  }
 /* ==========================================================================
    Media Queries
    ========================================================================== */

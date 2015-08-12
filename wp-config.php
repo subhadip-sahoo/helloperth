@@ -96,6 +96,7 @@ define('NEWS_PAGE', 260);
 define('GUIDE_PICKUP_LOCATIONS_PAGE', 373);
 define('MAPS_PAGE', 282);
 define('USER_GUIDE', 865);
+define('GENERAL_INFO', 284);
 
 /* HOME PAGE */
 

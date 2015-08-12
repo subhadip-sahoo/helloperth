@@ -70,7 +70,7 @@
                                         <a href="<?php echo href(PROFILE_PAGE);?>"><?php echo (!empty($userdetails->profile_pic)) ? '<img src="'.$avatar[0].'" width="92" height="92">' : get_avatar($user_ID, 92, get_option('avatar_default'), $userdetails->display_name); ?></a>
                                     </div>
                                     <ul class="dropdown-menu-ul">
-                                        <li><a href="<?php echo href(PROFILE_PAGE);?>">Profile</a></li>
+                                        <li><a href="<?php echo href(PROFILE_PAGE);?>">Your Account</a></li>
                                         <li><a href="<?php echo href(ADD_DIRECTORY_PAGE); ?>">Add Listing</a></li>
                                         <li><a href="<?php echo href(ADVANCED_SEARCH_PAGE); ?>">Search directory</a></li>
                                         <li><a href="<?php echo href(MAKE_PAYMENT_PAGE).'/'.$userdetails->user_activation_key.'/'.$user_ID; ?>">Plans</a></li>
